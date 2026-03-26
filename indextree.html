@@ -1,260 +1,65 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Certificadora — Índice</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#07080d;--surf:#0d0f18;--card:#111420;--bdr:#1e2236;
-  --acc:#4f9eff;--gold:#c9a84c;--ok:#3ecf8e;
-  --tx:#d8dce8;--dim:#5a607a;
-  --serif:'DM Serif Display',Georgia,serif;
-  --mono:'JetBrains Mono','Courier New',monospace;
-}
-body{background:var(--bg);color:var(--tx);font-family:var(--mono);font-size:13px;min-height:100vh}
-body::before{content:'';position:fixed;inset:0;
-  background-image:linear-gradient(rgba(79,158,255,.03)1px,transparent 1px),
-                   linear-gradient(90deg,rgba(79,158,255,.03)1px,transparent 1px);
-  background-size:40px 40px;pointer-events:none;z-index:0}
-header{position:relative;z-index:10;border-bottom:1px solid var(--bdr);
-  background:linear-gradient(180deg,#0a0c14 0%,transparent 100%);
-  padding:28px 40px 20px;display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap}
-.logo h1{font-family:var(--serif);font-size:2.2rem;letter-spacing:-.02em;color:#fff;line-height:1}
-.logo h1 span{color:var(--gold)}
-.logo p{color:var(--dim);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-top:5px}
-.hmeta{margin-left:auto;text-align:right;font-size:11px;color:var(--dim);line-height:1.9}
-.hmeta strong{color:var(--acc)}
-.hmeta a{color:var(--gold);text-decoration:none}
-.toolbar{position:relative;z-index:10;padding:12px 40px;display:flex;
-  gap:8px;align-items:center;border-bottom:1px solid var(--bdr);
-  background:var(--surf);flex-wrap:wrap}
-.sw{position:relative;flex:1;max-width:360px;min-width:180px}
-.sw input{width:100%;background:var(--card);border:1px solid var(--bdr);
-  border-radius:5px;color:var(--tx);font-family:var(--mono);font-size:12px;
-  padding:7px 10px 7px 30px;outline:none;transition:border-color .2s}
-.sw input:focus{border-color:var(--acc)}
-.sw::before{content:'⌕';position:absolute;left:8px;top:50%;transform:translateY(-50%);
-  color:var(--dim);font-size:15px;pointer-events:none}
-.btn{background:var(--card);border:1px solid var(--bdr);color:var(--tx);
-  font-family:var(--mono);font-size:11px;padding:5px 12px;border-radius:4px;
-  cursor:pointer;transition:all .15s;white-space:nowrap}
-.btn:hover{background:var(--bdr);border-color:var(--acc);color:#fff}
-.sbadge{margin-left:auto;display:flex;gap:16px}
-.stat .n{font-size:17px;font-weight:600;color:var(--acc);line-height:1;text-align:center}
-.stat .l{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.07em}
-main{position:relative;z-index:1;padding:24px 40px;max-width:1060px}
-ul.tree,ul.ch{list-style:none;padding:0;margin:0}
-.nrow{display:flex;align-items:flex-start;padding:1px 0}
-.indent{display:flex;flex-shrink:0}
-.il{width:20px;flex-shrink:0;position:relative}
-.il.lv::before{content:'';position:absolute;left:9px;top:0;bottom:0;width:1px;background:var(--bdr)}
-.tog{flex-shrink:0;background:none;border:none;color:var(--dim);cursor:pointer;
-  font-size:10px;width:18px;height:20px;display:flex;align-items:center;
-  justify-content:center;border-radius:3px;margin-top:1px;transition:all .15s;user-select:none}
-.tog:hover{color:var(--acc);background:var(--bdr)}
-.tog.leaf{color:var(--bdr);cursor:default}
-.tog.leaf:hover{background:none;color:var(--bdr)}
-.nc{flex:1;min-width:0;padding:2px 6px 2px 3px;border-radius:4px;transition:background .12s;cursor:pointer}
-.nc:hover{background:var(--card)}
-.nname{line-height:1.55;word-break:break-word}
-.nname.done{text-decoration:line-through;color:var(--dim)}
-.nname mark{background:rgba(79,158,255,.22);color:#fff;border-radius:2px;padding:0 2px}
-.nnote{font-size:11px;color:var(--dim);margin-top:2px;line-height:1.5;
-  border-left:2px solid var(--bdr);padding-left:7px;margin-left:2px}
-.nnote mark{background:rgba(79,158,255,.15)}
-ul.ch{overflow:hidden}
-ul.ch.closed{display:none}
-.d0>.nrow>.nc>.nname{color:#fff;font-size:14px;font-weight:600}
-.d1>.nrow>.nc>.nname{color:#c8d4f0}
-.d2>.nrow>.nc>.nname{color:#a8b8d8}
-#status{text-align:center;padding:70px 20px;color:var(--dim)}
-#status .big{font-family:var(--serif);font-size:2.2rem;color:var(--bdr);margin-bottom:10px}
-footer{position:relative;z-index:10;border-top:1px solid var(--bdr);
-  padding:14px 40px;font-size:11px;color:var(--dim);
-  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
-footer a{color:var(--acc);text-decoration:none}
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
-@keyframes fi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-.ni{animation:fi .16s ease both}
-</style>
-</head>
-<body>
-<header>
-  <div class="logo">
-    <h1>INTELECTTA <span>Cert</span></h1>
-    <p>Índice de Conhecimento · WorkFlowy Tree</p>
-  </div>
-  <div class="hmeta">
-    <div>Fonte: <strong>WorkFlowy API</strong></div>
-    <div>Atualizado: <strong id="pub-date">—</strong></div>
-    <div><a href="https://certsigner.com" target="_blank">certsigner.com</a></div>
-  </div>
-</header>
-<div class="toolbar">
-  <div class="sw"><input id="q" type="text" placeholder="Buscar nós e notas…" autocomplete="off"></div>
-  <button class="btn" onclick="expandAll()">▾ Expandir tudo</button>
-  <button class="btn" onclick="collapseAll()">▸ Recolher tudo</button>
-  <button class="btn" onclick="clearQ()">✕ Limpar</button>
-  <div class="sbadge">
-    <div class="stat"><div class="n" id="sTotal">–</div><div class="l">Total</div></div>
-    <div class="stat"><div class="n" id="sMatch">–</div><div class="l">Match</div></div>
-  </div>
-</div>
-<main>
-  <ul id="tree" class="tree">
-    <div id="status">
-      <div class="big">⬡</div>
-      <p>Árvore não carregada.<br>Use o <strong>WorkFlowy Tree Exporter</strong> para publicar.</p>
-    </div>
-  </ul>
-</main>
-<footer>
-  <span>INTELECTTA Certificadora · <a href="https://certsigner.com">certsigner.com</a></span>
-  <span id="fstats"></span>
-</footer>
-<script>
-// DATA — replaced by WFExporter on each publish
-const WF_DATA = {"items": [{"id": "9cf2b226-35fa-0997-81d8-3182219bf84c", "nm": "HOLDING", "no": "", "cp": false, "ch": [{"id": "da8c3ff2-d688-fc76-223e-167dd4c489c8", "nm": "UNIQUE ", "no": "", "cp": false, "ch": [{"id": "f8adafdc-2b06-367e-bd04-f8009fdf06e0", "nm": "Certificadora ", "no": "", "cp": false, "ch": [{"id": "a2d5773b-2123-7f25-7e8b-d987ded09048", "nm": "Intro", "no": "", "cp": false, "ch": [{"id": "c1c98d33-5b47-4793-db49-164246411679", "nm": "projeto de propriedade e autoria de FCS, para valorizar a ação criativa dos autores. ", "no": "", "cp": false, "ch": []}]}, {"id": "bcb709e7-5b03-565a-563b-426d82940a98", "nm": "Público-alvo", "no": "", "cp": false, "ch": [{"id": "c3edc5c8-8ba0-4298-c04a-bb7408558d57", "nm": "Devs (programadores)", "no": "", "cp": false, "ch": []}, {"id": "c8086dd2-1bda-d07a-d8c7-0175639f609f", "nm": "Cientistas", "no": "", "cp": false, "ch": [{"id": "ab850c4e-90e8-5c2e-45d1-bbcc4d4ab82f", "nm": "<a href=\"http://sciencecertifier.com\">sciencecertifier.com</a>", "no": "", "cp": false, "ch": []}, {"id": "9d256999-dfa7-896d-1910-53ee8c7e71bd", "nm": "artCertifier.com", "no": "", "cp": false, "ch": []}, {"id": "465db520-c0b4-75df-0bc3-ae3d4b4f6ae5", "nm": "musicCertifier. com", "no": "", "cp": false, "ch": []}, {"id": "1a261da6-81bb-c0f1-9839-773c59fb7bc8", "nm": "Muitos querendo provar a anterioridade da ideia", "no": "", "cp": false, "ch": [{"id": "c7ecaf47-9461-fa1f-5c83-79edcdd8a442", "nm": "patentes ( demoram )", "no": "", "cp": false, "ch": []}, {"id": "326920bb-1494-1a11-db50-8b90218ff8fa", "nm": "periódicos (ideia sem resultados ?) ", "no": "", "cp": false, "ch": []}]}]}, {"id": "d41d126b-d102-f94c-7eb9-49b028ce8817", "nm": "Estudante", "no": "", "cp": false, "ch": []}, {"id": "42eb513f-9cfc-1ed3-397c-fe54d1017cc5", "nm": "Artista / musico", "no": "", "cp": false, "ch": []}, {"id": "8f54dad0-4134-f0bb-2af2-ea9c6a8fbb27", "nm": "Escritores", "no": "", "cp": false, "ch": []}, {"id": "4376257c-bf7d-3bc9-5781-926649b9244f", "nm": "Autoconhecimento", "no": "", "cp": false, "ch": []}, {"id": "99451e27-022e-c3ac-e06d-9dbfede3d445", "nm": "Projetos ", "no": "", "cp": false, "ch": []}]}, {"id": "ceca302b-d827-4e88-86e4-d1393f0d91a5", "nm": "Aplicaçoes", "no": "", "cp": false, "ch": [{"id": "de536d6a-794a-b714-5230-841702051322", "nm": "Próprias ideias:", "no": "", "cp": false, "ch": [{"id": "69ef119d-b5d1-a2ec-bb5b-ed5d4861db2c", "nm": "Certificar rápida e instantaneamente ", "no": "", "cp": false, "ch": []}, {"id": "f3f0ce12-a786-76ed-11fc-7a14840aacf8", "nm": "divulgar na busca", "no": "", "cp": false, "ch": []}, {"id": "83382216-1765-4107-9718-df15dba024d9", "nm": "Motivar e direcionar criadores para certas área de criação de ideais ou textos , por exemplo LawBank", "no": "", "cp": false, "ch": []}]}, {"id": "d8601e10-14c8-5c92-b5d5-3cdefff1a8d1", "nm": "Colocar chat entre Criadores semelhantes ? ", "no": "", "cp": false, "ch": []}, {"id": "177c2143-a780-8c3e-0137-19833eab7952", "nm": "Convênio com LinkedIn ? ", "no": "", "cp": false, "ch": []}]}, {"id": "29c9ea75-8f06-1a39-a3c6-e5fcb83b0d09", "nm": "Administração ", "no": "", "cp": false, "ch": [{"id": "b328c4db-5111-a428-ce21-ae13ac19949d", "nm": "Opções de admin.(uma delas) ", "no": "", "cp": false, "ch": [{"id": "3b785545-51a0-4e0a-532d-2896568e7ae8", "nm": "1 registrar  empresa própria   e site separado da Iectta exemplo : <a href=\"http://www.certifix.com\">www.</a>scienceCertifier.com", "no": "", "cp": false, "ch": []}, {"id": "f86de8d5-78f4-29a5-dca1-d5073a547ca9", "nm": "2 colocar como braço da Iectta.com", "no": "", "cp": false, "ch": []}, {"id": "9b2889ae-1915-006d-3214-6f7a65301939", "nm": "3 doar 50% de direitos   da certificadora  por 12 meses no <a href=\"http://www.berklab.com\">www.berklab.com</a>,  para alavancar com &quot;nome famoso&quot; . e alavancar o lab: depois de 12 meses retorna para teu nome, tua administração e teu site ", "no": "", "cp": false, "ch": []}]}]}, {"id": "a9142d8c-8de6-4815-62f2-2930c118c8d0", "nm": "Branding", "no": "", "cp": false, "ch": [{"id": "9e09af55-b860-a957-ab4e-ccc46b4b7eda", "nm": "domínio CERTSIGNER.COM", "no": "", "cp": false, "ch": [{"id": "71415111-9963-a490-b2a3-3bf1256a8f40", "nm": "Certifyx", "no": "", "cp": false, "ch": []}, {"id": "e4cfa8ef-05bb-a038-5c8a-15d40415c618", "nm": "Certivox", "no": "", "cp": false, "ch": []}, {"id": "ca02bb7a-bde5-824c-7001-401bcbabb105", "nm": "Certinex", "no": "", "cp": false, "ch": []}, {"id": "2a450937-8a21-598c-815c-8ab731e9db40", "nm": "Certilogix", "no": "", "cp": false, "ch": []}, {"id": "381acebd-048d-4bd0-7846-0569c83cf30a", "nm": "Certizon", "no": "", "cp": false, "ch": []}, {"id": "64c8e7ee-2044-2fa0-1765-7e7bc8689405", "nm": "Certivium", "no": "", "cp": false, "ch": []}, {"id": "7c35838a-2e76-87eb-ad7d-4c7fc42fa382", "nm": "Certcore", "no": "", "cp": false, "ch": []}, {"id": "fe3a0412-4cad-f82c-c09a-1bc2037e73b4", "nm": "Certnova", "no": "", "cp": false, "ch": []}, {"id": "76c7c89c-d861-f8fc-264d-b81e91e3f884", "nm": "Certpulse", "no": "", "cp": false, "ch": []}, {"id": "d9c57860-d959-1a10-ec29-13d8fefed13c", "nm": "Certlinka", "no": "", "cp": false, "ch": []}, {"id": "9b07b6c5-044e-ffd3-6eb6-5a604de045fc", "nm": "Certbridge", "no": "", "cp": false, "ch": []}, {"id": "f8dfa52f-fb19-3bae-a22e-8287425b9ac0", "nm": "Certwave", "no": "", "cp": false, "ch": []}, {"id": "985f93e7-4685-7135-7d60-4635706aba11", "nm": "Certsync", "no": "", "cp": false, "ch": []}, {"id": "f1013d2f-d8d2-369c-58e2-17341c9e3f8e", "nm": "Certbase", "no": "", "cp": false, "ch": []}, {"id": "9bb2871b-b8b0-b3b6-1140-e20d232d6d92", "nm": "Certsphere", "no": "", "cp": false, "ch": []}, {"id": "63e4393c-c28f-5908-548e-f5089b08ef53", "nm": "Certlock", "no": "", "cp": false, "ch": []}, {"id": "ed28f1fb-9ddb-398b-732f-74dc0c64b8a6", "nm": "Certgrid", "no": "", "cp": false, "ch": []}, {"id": "c4f86d09-6010-dde8-be20-c14f2fa34332", "nm": "Certtrust", "no": "", "cp": false, "ch": []}, {"id": "d4197a96-57ed-3cfa-a564-3ac7da19bac7", "nm": "Certline", "no": "", "cp": false, "ch": []}, {"id": "d9fe77f3-a774-8302-f13a-408f0d92bee6", "nm": "Certflow", "no": "", "cp": false, "ch": []}, {"id": "6b07a234-c475-36fd-ac9c-024b627aa072", "nm": "Certnetix", "no": "", "cp": false, "ch": []}, {"id": "cdac8e0e-9786-5eac-82cc-07e0357c906c", "nm": "Certnity", "no": "", "cp": false, "ch": []}, {"id": "dc40b88d-61bb-4665-7a76-31404f7efdb0", "nm": "Certedge", "no": "", "cp": false, "ch": []}, {"id": "ab3fb8d1-79f9-fd9c-6871-ab9c356b7b74", "nm": "Certium", "no": "", "cp": false, "ch": []}, {"id": "43c927e3-069e-dd43-5bde-68867bdbd4b3", "nm": "Certpath", "no": "", "cp": false, "ch": []}, {"id": "e9fa467d-9180-80be-224b-ee77a8ecd9c1", "nm": "Certaxis", "no": "", "cp": false, "ch": []}, {"id": "750bd467-dfe6-e56c-0013-51f9c41ac67b", "nm": "Certhubix", "no": "", "cp": false, "ch": []}, {"id": "ae04d6ea-4b2e-34bb-4415-3b2c865df2a7", "nm": "Certlabs", "no": "", "cp": false, "ch": []}, {"id": "aa19e00a-783d-40f3-7716-e348b6c9eeca", "nm": "Certsecure", "no": "", "cp": false, "ch": []}, {"id": "01a2ce9d-df66-9164-c1cd-7fde51625e63", "nm": "Certverse", "no": "", "cp": false, "ch": []}]}, {"id": "220988a9-c508-fd26-5017-69c1a4fb1bcf", "nm": "Validação ", "no": "", "cp": false, "ch": []}, {"id": "c4a4de64-d938-f047-b6d7-b0f3025667a2", "nm": "Video Criando :", "no": "", "cp": false, "ch": []}]}, {"id": "4da4ff28-3dc8-4874-68c6-ac3c116986ae", "nm": "Software", "no": "", "cp": false, "ch": []}, {"id": "b79d0d06-8427-10f7-783a-d2670c84a78f", "nm": "ToDo", "no": "", "cp": false, "ch": []}]}, {"id": "f7d34d1c-050c-1689-0fbe-1bd9c291e76c", "nm": "Psychotheory emotions equations - dreams math ", "no": "", "cp": false, "ch": []}, {"id": "f6dd14d1-98d8-1df8-8948-62e5ff069866", "nm": "Theory Brain", "no": "", "cp": false, "ch": []}, {"id": "f1e16542-c382-1665-8833-a1f0fe64c92d", "nm": "Resync Relink Rebind", "no": "", "cp": false, "ch": []}, {"id": "5bb0f1f8-e7ce-d60e-6ec5-9d78f631ad18", "nm": "Agent Psy Equilib", "no": "", "cp": false, "ch": []}, {"id": "b8905de8-57c9-9eb4-9cd5-459e3af2be64", "nm": "World Unified Human Database", "no": "", "cp": false, "ch": []}, {"id": "8fbc0e55-1e8c-3863-4e7f-4678f7c58581", "nm": "EthiLab", "no": "", "cp": false, "ch": []}, {"id": "168a9ff7-a518-12e8-48bd-1a5d76975660", "nm": "RemLab", "no": "", "cp": false, "ch": []}, {"id": "ecc0121b-eb78-83ca-3f03-4114d26d981f", "nm": "Se deu correto ", "no": "", "cp": false, "ch": []}, {"id": "1398b49b-dfa2-73f0-e5aa-9430578b899c", "nm": "KAICO", "no": "", "cp": false, "ch": []}, {"id": "a86c5880-1f3d-8ed8-f3af-db317deccc91", "nm": "SPACEGAME", "no": "", "cp": false, "ch": []}, {"id": "00e2c6e3-db81-7764-efad-4eff22b59147", "nm": "Criogenic Ray", "no": "", "cp": false, "ch": []}]}, {"id": "fea332c5-d1e3-40b2-b2b6-71c083e6da2d", "nm": "Health", "no": "", "cp": false, "ch": []}, {"id": "ec55d721-6d8f-b875-cf0d-c8b8975dcd6e", "nm": "Art", "no": "", "cp": false, "ch": []}, {"id": "80565f45-98f3-7a22-2a78-3d4ae59b1265", "nm": "Editora", "no": "", "cp": false, "ch": []}, {"id": "74c77576-1468-b253-ff3d-c6c4c750e995", "nm": "Technology", "no": "", "cp": false, "ch": []}, {"id": "f00a1ae3-2bdd-b3ca-a75e-93e8c95be2c1", "nm": "Unframer", "no": "", "cp": false, "ch": []}, {"id": "10e3692e-9ff1-3935-c0c6-bd34cc52b6bf", "nm": "LawBank", "no": "", "cp": false, "ch": []}, {"id": "357724e7-44fc-56b0-5871-616bfffdd314", "nm": "PortalPsi", "no": "", "cp": false, "ch": []}, {"id": "36de1395-a25e-b749-709e-5228b7b146cb", "nm": "StartUps", "no": "", "cp": false, "ch": []}, {"id": "7cb816a0-6700-d739-860b-b8568e92fa77", "nm": "Titles", "no": "", "cp": false, "ch": []}, {"id": "6d4344dc-b94b-2e49-54d0-52ddccb1eba3", "nm": "Berklabs.org", "no": "", "cp": false, "ch": []}, {"id": "d9cf38ab-0b29-8a5b-4571-f8e934bcb9d5", "nm": "RH", "no": "", "cp": false, "ch": []}, {"id": "b19aa5b5-fc38-935c-43ac-931bcfdc907e", "nm": "Todo", "no": "", "cp": false, "ch": []}]}, {"id": "3691f896-e9ac-b5f8-af09-bcd5ff98447d", "nm": "Today", "no": "", "cp": false, "ch": []}, {"id": "1f3c5116-95e3-1002-30e2-1f82d4575e8b", "nm": "CNV", "no": "", "cp": false, "ch": []}, {"id": "a30371f7-6124-6a10-bb46-dd077be0459c", "nm": "Todo", "no": "", "cp": false, "ch": []}]};
-
-const IDX = [];
-let TOTAL = 0;
-
-document.addEventListener('DOMContentLoaded', () => {
-  const nodes = rootNodes(WF_DATA);
-  if (!nodes || !nodes.length) return;
-  document.getElementById('status').remove();
-  const ul = document.getElementById('tree');
-  nodes.forEach(n => ul.appendChild(mkNode(n, 0, [])));
-  const ts = new Date().toLocaleString('pt-BR');
-  document.getElementById('pub-date').textContent = '2026-03-26 00:23:40';
-  document.getElementById('sTotal').textContent = TOTAL;
-  document.getElementById('fstats').textContent = TOTAL + ' nos · ' + nodes.length + ' raizes';
-  document.getElementById('q').addEventListener('input', e => search(e.target.value));
-});
-
-function rootNodes(d) {
-  if (!d) return null;
-  if (Array.isArray(d)) return d;
-  if (d.items && d.items.length) return d.items;
-  try { return d.projectTreeData.mainProjectTreeInfo.rootProjectChildren; } catch(e) {}
-  return null;
-}
-
-function mkNode(node, depth, pOpen) {
-  const name = node.nm != null ? node.nm : (node.name || '');
-  const note = node.no != null ? node.no : (node.note || '');
-  const done = !!(node.cp || node.completedAt);
-  const kids = node.ch != null ? node.ch : (node.children || []);
-  TOTAL++;
-
-  const li = document.createElement('li');
-  li.className = 'ni d' + Math.min(depth, 4);
-
-  const row = document.createElement('div');
-  row.className = 'nrow';
-
-  // indent guides
-  const ind = document.createElement('div');
-  ind.className = 'indent';
-  for (let i = 0; i < depth; i++) {
-    const g = document.createElement('div');
-    g.className = 'il' + (pOpen[i] ? ' lv' : '');
-    ind.appendChild(g);
-  }
-
-  const tog = document.createElement('button');
-  tog.className = kids.length ? 'tog' : 'tog leaf';
-  tog.textContent = kids.length ? '▸' : '·';
-
-  const nc = document.createElement('div');
-  nc.className = 'nc';
-
-  const nameEl = document.createElement('div');
-  nameEl.className = 'nname' + (done ? ' done' : '');
-  nameEl.textContent = name;
-  nc.appendChild(nameEl);
-
-  let noteEl = null;
-  if (note) {
-    noteEl = document.createElement('div');
-    noteEl.className = 'nnote';
-    noteEl.textContent = note;
-    nc.appendChild(noteEl);
-  }
-
-  row.appendChild(ind);
-  row.appendChild(tog);
-  row.appendChild(nc);
-  li.appendChild(row);
-
-  IDX.push({ li, nameEl, noteEl, nameTxt: name, noteTxt: note });
-
-  if (kids.length) {
-    const cul = document.createElement('ul');
-    cul.className = 'ch closed';
-    kids.forEach((k, i) => {
-      const childOpen = pOpen.concat([i < kids.length - 1]);
-      cul.appendChild(mkNode(k, depth + 1, childOpen));
-    });
-    li.appendChild(cul);
-
-    const doToggle = () => {
-      const isOpen = !cul.classList.contains('closed');
-      cul.classList.toggle('closed', isOpen);
-      tog.textContent = isOpen ? '▸' : '▾';
-    };
-    tog.addEventListener('click', e => { e.stopPropagation(); doToggle(); });
-    nc.addEventListener('click', doToggle);
-  }
-  return li;
-}
-
-function search(q) {
-  const query = q.trim().toLowerCase();
-  let hits = 0;
-  IDX.forEach(({ li, nameEl, noteEl, nameTxt, noteTxt }) => {
-    nameEl.innerHTML = esc(nameTxt);
-    if (noteEl) noteEl.innerHTML = esc(noteTxt);
-    if (!query) { li.style.display = ''; return; }
-    const match = nameTxt.toLowerCase().includes(query) || noteTxt.toLowerCase().includes(query);
-    li.style.display = match ? '' : 'none';
-    if (match) {
-      hits++;
-      nameEl.innerHTML = hi(nameTxt, q);
-      if (noteEl) noteEl.innerHTML = hi(noteTxt, q);
-      let p = li.parentElement;
-      while (p && p.id !== 'tree') {
-        if (p.classList.contains('ch') && p.classList.contains('closed')) {
-          p.classList.remove('closed');
-          const t = p.previousElementSibling && p.previousElementSibling.querySelector('.tog');
-          if (t && !t.classList.contains('leaf')) t.textContent = '▾';
-        }
-        p = p.parentElement;
-      }
-    }
-  });
-  document.getElementById('sMatch').textContent = query ? hits : '–';
-}
-
-function hi(text, q) {
-  return esc(text).replace(new RegExp('(' + escRe(q) + ')', 'gi'), '<mark>$1</mark>');
-}
-function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function escRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
-function clearQ() { document.getElementById('q').value = ''; search(''); }
-function expandAll() {
-  document.querySelectorAll('.ch').forEach(u => u.classList.remove('closed'));
-  document.querySelectorAll('.tog:not(.leaf)').forEach(b => b.textContent = '▾');
-}
-function collapseAll() {
-  document.querySelectorAll('.ch').forEach(u => u.classList.add('closed'));
-  document.querySelectorAll('.tog:not(.leaf)').forEach(b => b.textContent = '▸');
-}
-</script>
-</body>
-</html>
+- Certificadora 
+  - Intro
+    - projeto de propriedade e autoria de FCS, para valorizar a ação criativa dos autores. 
+  - Público-alvo
+    - Devs (programadores)
+    - Cientistas
+      - <a href="http://sciencecertifier.com">sciencecertifier.com</a>
+      - artCertifier.com
+      - musicCertifier. com
+      - Muitos querendo provar a anterioridade da ideia
+        - patentes ( demoram )
+        - periódicos (ideia sem resultados ?) 
+    - Estudante
+    - Artista / musico
+    - Escritores
+    - Autoconhecimento
+    - Projetos 
+  - Aplicaçoes
+    - Próprias ideias:
+      - Certificar rápida e instantaneamente 
+      - divulgar na busca
+      - Motivar e direcionar criadores para certas área de criação de ideais ou textos , por exemplo LawBank
+    - Colocar chat entre Criadores semelhantes ? 
+    - Convênio com LinkedIn ? 
+  - Administração 
+    - Opções de admin.(uma delas) 
+      - 1 registrar  empresa própria   e site separado da Iectta exemplo : <a href="http://www.certifix.com">www.</a>scienceCertifier.com
+      - 2 colocar como braço da Iectta.com
+      - 3 doar 50% de direitos   da certificadora  por 12 meses no <a href="http://www.berklab.com">www.berklab.com</a>,  para alavancar com &quot;nome famoso&quot; . e alavancar o lab: depois de 12 meses retorna para teu nome, tua administração e teu site 
+  - Branding
+    - domínio CERTSIGNER.COM
+      - Certifyx
+      - Certivox
+      - Certinex
+      - Certilogix
+      - Certizon
+      - Certivium
+      - Certcore
+      - Certnova
+      - Certpulse
+      - Certlinka
+      - Certbridge
+      - Certwave
+      - Certsync
+      - Certbase
+      - Certsphere
+      - Certlock
+      - Certgrid
+      - Certtrust
+      - Certline
+      - Certflow
+      - Certnetix
+      - Certnity
+      - Certedge
+      - Certium
+      - Certpath
+      - Certaxis
+      - Certhubix
+      - Certlabs
+      - Certsecure
+      - Certverse
+    - Validação 
+    - Video Criando :
+  - Software
+  - ToDo
