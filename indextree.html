@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificadora — Índice de Conhecimento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #07080d;
+    --surface: #0d0f18;
+    --card:    #111420;
+    --border:  #1e2236;
+    --accent:  #4f9eff;
+    --gold:    #c9a84c;
+    --green:   #3ecf8e;
+    --red:     #f75f5f;
+    --text:    #d8dce8;
+    --dim:     #5a607a;
+    --serif:   'DM Serif Display', Georgia, serif;
+    --mono:    'JetBrains Mono', 'Courier New', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── grid lines background ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(79,158,255,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79,158,255,.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── header ── */
+  header {
+    position: relative; z-index: 10;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #0a0c14 0%, transparent 100%);
+    padding: 32px 48px 24px;
+    display: flex; align-items: flex-end; gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .logo-block h1 {
+    font-family: var(--serif);
+    font-size: 2.4rem;
+    letter-spacing: -.02em;
+    color: #fff;
+    line-height: 1;
+  }
+  .logo-block h1 span { color: var(--gold); }
+  .logo-block p {
+    color: var(--dim);
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .header-meta {
+    margin-left: auto;
+    text-align: right;
+    font-size: 11px;
+    color: var(--dim);
+    line-height: 1.8;
+  }
+  .header-meta strong { color: var(--accent); }
+
+  /* ── toolbar ── */
+  .toolbar {
+    position: relative; z-index: 10;
+    padding: 14px 48px;
+    display: flex; gap: 10px; align-items: center;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    flex-wrap: wrap;
+  }
+
+  .search-wrap {
+    position: relative; flex: 1; max-width: 380px; min-width: 200px;
+  }
+  .search-wrap input {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 7px 12px 7px 34px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .search-wrap input:focus { border-color: var(--accent); }
+  .search-wrap::before {
+    content: '⌕';
+    position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+    color: var(--dim); font-size: 16px; pointer-events: none;
+  }
+
+  .btn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 6px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background .15s, border-color .15s, color .15s;
+    white-space: nowrap;
+  }
+  .btn:hover { background: var(--border); border-color: var(--accent); color: #fff; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #000; font-weight: 600; }
+  .btn.primary:hover { background: #6ab4ff; }
+
+  .stats-badge {
+    margin-left: auto;
+    display: flex; gap: 16px;
+  }
+  .stat { text-align: center; }
+  .stat .n { font-size: 18px; font-weight: 600; color: var(--accent); line-height: 1; }
+  .stat .l { font-size: 10px; color: var(--dim); text-transform: uppercase; letter-spacing: .08em; }
+
+  /* ── main layout ── */
+  main {
+    position: relative; z-index: 1;
+    padding: 32px 48px;
+    max-width: 1100px;
+  }
+
+  /* ── tree container ── */
+  #tree-root { padding: 0; }
+
+  /* ── node ── */
+  .node { list-style: none; }
+
+  .node-row {
+    display: flex; align-items: flex-start; gap: 0;
+    padding: 2px 0;
+    position: relative;
+  }
+
+  .indent-guides {
+    display: flex; flex-shrink: 0;
+  }
+  .guide {
+    width: 20px; flex-shrink: 0;
+    position: relative;
+  }
+  .guide::before {
+    content: '';
+    position: absolute; left: 9px; top: 0; bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .toggle-btn {
+    background: none; border: none;
+    color: var(--dim); cursor: pointer;
+    font-size: 10px; width: 18px; height: 18px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 3px;
+    flex-shrink: 0; margin-top: 2px;
+    transition: color .15s, background .15s;
+  }
+  .toggle-btn:hover { color: var(--accent); background: var(--border); }
+  .toggle-btn.leaf { color: var(--border); cursor: default; }
+  .toggle-btn.leaf:hover { background: none; color: var(--border); }
+
+  .node-content {
+    flex: 1; min-width: 0;
+    padding: 3px 8px 3px 4px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background .12s;
+    position: relative;
+  }
+  .node-content:hover { background: var(--card); }
+  .node-content.selected { background: #0d1e36; outline: 1px solid var(--accent); }
+
+  .node-name {
+    font-size: 13px;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+  .node-name.completed { text-decoration: line-through; color: var(--dim); }
+  .node-name mark {
+    background: rgba(79,158,255,.25);
+    color: #fff; border-radius: 2px; padding: 0 2px;
+  }
+
+  .node-note {
+    font-size: 11px; color: var(--dim);
+    margin-top: 2px; line-height: 1.5;
+    border-left: 2px solid var(--border);
+    padding-left: 8px; margin-left: 2px;
+  }
+
+  .children-list { padding-left: 0; }
+  .children-list.collapsed { display: none; }
+
+  /* ── depth colors ── */
+  .depth-0 > .node-row > .node-content > .node-name { color: #fff; font-size: 14px; font-weight: 600; }
+  .depth-1 > .node-row > .node-content > .node-name { color: #c8d4f0; }
+  .depth-2 > .node-row > .node-content > .node-name { color: #a8b8d8; }
+
+  /* ── empty/loading ── */
+  #status-msg {
+    text-align: center; padding: 80px 20px;
+    color: var(--dim);
+  }
+  #status-msg .big { font-family: var(--serif); font-size: 2rem; color: var(--border); margin-bottom: 12px; }
+
+  /* ── footer ── */
+  footer {
+    position: relative; z-index: 10;
+    border-top: 1px solid var(--border);
+    padding: 16px 48px;
+    font-size: 11px; color: var(--dim);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 8px;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  /* ── scrollbar ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ── animations ── */
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .node { animation: fadeIn .18s ease both; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-block">
+    <h1>INTELECTTA <span>Cert</span></h1>
+    <p>Índice de Conhecimento · WorkFlowy Tree</p>
+  </div>
+  <div class="header-meta">
+    <div>Fonte: <strong>WorkFlowy</strong></div>
+    <div>Publicado em <strong id="pub-date">—</strong></div>
+    <div><a href="https://certsigner.com" style="color:var(--gold)">certsigner.com</a></div>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="search-wrap">
+    <input type="text" id="search-input" placeholder="Buscar nós…" autocomplete="off">
+  </div>
+  <button class="btn" onclick="expandAll()">Expandir tudo</button>
+  <button class="btn" onclick="collapseAll()">Recolher tudo</button>
+  <button class="btn" onclick="clearSearch()">✕ Limpar busca</button>
+
+  <div class="stats-badge">
+    <div class="stat"><div class="n" id="stat-total">0</div><div class="l">Nós</div></div>
+    <div class="stat"><div class="n" id="stat-roots">0</div><div class="l">Raízes</div></div>
+    <div class="stat"><div class="n" id="stat-matches">—</div><div class="l">Matches</div></div>
+  </div>
+</div>
+
+<main>
+  <ul id="tree-root">
+    <div id="status-msg">
+      <div class="big">⬡</div>
+      <div>Árvore WorkFlowy não carregada.<br>
+      Exporte via <strong>WorkFlowy Tree Exporter</strong> para preencher esta página.</div>
+    </div>
+  </ul>
+</main>
+
+<footer>
+  <span>INTELECTTA Certificadora · <a href="https://certsigner.com">certsigner.com</a></span>
+  <span id="footer-stats"></span>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════
+//  DATA — substituído pelo WorkFlowy Exporter
+// ═══════════════════════════════════════════════
+const WF_DATA = null;
+// Quando exportado, o exporter substitui a linha acima por:
+// const WF_DATA = { items: [...] };
+// ou cola a árvore JSON completa aqui.
+
+// ═══════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════
+let allNodes   = [];   // flat list { el, name, note, depth }
+let totalCount = 0;
+
+// ═══════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('pub-date').textContent =
+    new Date().toLocaleDateString('pt-BR', { day:'2-digit', month:'short', year:'numeric' });
+
+  const root = getNodes(WF_DATA);
+  if (!root || root.length === 0) return;
+
+  document.getElementById('status-msg')?.remove();
+  const ul = document.getElementById('tree-root');
+  ul.style.cssText = '';
+
+  root.forEach(node => ul.appendChild(buildNode(node, 0, [])));
+
+  document.getElementById('stat-total').textContent = totalCount;
+  document.getElementById('stat-roots').textContent = root.length;
+  document.getElementById('footer-stats').textContent =
+    `${totalCount} nós · ${root.length} raízes`;
+
+  document.getElementById('search-input').addEventListener('input', e => doSearch(e.target.value));
+});
+
+function getNodes(data) {
+  if (!data) return null;
+  if (Array.isArray(data)) return data;
+  if (data.items) return data.items;
+  const pti = data?.projectTreeData?.mainProjectTreeInfo;
+  return pti?.rootProjectChildren || null;
+}
+
+// ═══════════════════════════════════════════════
+//  BUILD DOM TREE
+// ═══════════════════════════════════════════════
+function buildNode(node, depth, ancestorGuides) {
+  const name = node.nm || node.name || '';
+  const note = node.no || node.note || '';
+  const done = !!(node.cp || node.completedAt);
+  const children = node.ch || node.children || [];
+
+  totalCount++;
+
+  const li = document.createElement('li');
+  li.className = `node depth-${Math.min(depth, 4)}`;
+
+  // row
+  const row = document.createElement('div');
+  row.className = 'node-row';
+
+  // indent guides
+  const guides = document.createElement('div');
+  guides.className = 'indent-guides';
+  ancestorGuides.forEach((isLast, i) => {
+    const g = document.createElement('div');
+    g.className = 'guide';
+    if (i === ancestorGuides.length - 1 && !isLast) {
+      g.style.cssText = 'position:relative';
+    }
+    guides.appendChild(g);
+  });
+  if (depth > 0) guides.style.width = (depth * 20) + 'px';
+
+  // toggle
+  const toggle = document.createElement('button');
+  toggle.className = children.length ? 'toggle-btn' : 'toggle-btn leaf';
+  toggle.textContent = children.length ? '▸' : '·';
+  toggle.setAttribute('aria-label', children.length ? 'expandir' : '');
+
+  // content
+  const content = document.createElement('div');
+  content.className = 'node-content';
+
+  const nameEl = document.createElement('div');
+  nameEl.className = 'node-name' + (done ? ' completed' : '');
+  nameEl.textContent = name;
+  content.appendChild(nameEl);
+
+  if (note) {
+    const noteEl = document.createElement('div');
+    noteEl.className = 'node-note';
+    noteEl.textContent = note;
+    content.appendChild(noteEl);
+  }
+
+  row.appendChild(guides);
+  row.appendChild(toggle);
+  row.appendChild(content);
+  li.appendChild(row);
+
+  // store for search
+  allNodes.push({ li, nameEl, noteEl: content.querySelector('.node-note'), name: name.toLowerCase(), note: note.toLowerCase() });
+
+  // children
+  if (children.length) {
+    const childUl = document.createElement('ul');
+    childUl.className = 'children-list collapsed';
+
+    children.forEach((child, i) => {
+      const isLast = i === children.length - 1;
+      childUl.appendChild(buildNode(child, depth + 1, [...ancestorGuides, isLast]));
+    });
+
+    li.appendChild(childUl);
+
+    toggle.addEventListener('click', e => {
+      e.stopPropagation();
+      const collapsed = childUl.classList.contains('collapsed');
+      childUl.classList.toggle('collapsed', !collapsed);
+      toggle.textContent = collapsed ? '▾' : '▸';
+    });
+
+    content.addEventListener('click', () => toggle.click());
+  }
+
+  return li;
+}
+
+// ═══════════════════════════════════════════════
+//  SEARCH
+// ═══════════════════════════════════════════════
+function doSearch(query) {
+  const q = query.trim().toLowerCase();
+  let matches = 0;
+
+  allNodes.forEach(({ li, nameEl, noteEl, name, note }) => {
+    if (!q) {
+      nameEl.innerHTML = escHtml(nameEl.textContent.replace(/<[^>]+>/g,'') || name);
+      if (noteEl) noteEl.innerHTML = escHtml(noteEl.textContent.replace(/<[^>]+>/g,'') || note);
+      li.style.display = '';
+      return;
+    }
+    const nameOrig = nameEl.textContent.replace(/<[^>]+>/g,'') || name;
+    const noteOrig = noteEl ? (noteEl.textContent.replace(/<[^>]+>/g,'') || note) : '';
+    const hit = name.includes(q) || note.includes(q);
+    li.style.display = hit ? '' : 'none';
+    if (hit) {
+      matches++;
+      nameEl.innerHTML = highlight(nameOrig, query);
+      if (noteEl) noteEl.innerHTML = highlight(noteOrig, query);
+      // expand parents
+      let parent = li.parentElement;
+      while (parent && parent.id !== 'tree-root') {
+        if (parent.classList.contains('children-list')) {
+          parent.classList.remove('collapsed');
+          const toggle = parent.previousSibling?.querySelector('.toggle-btn');
+          if (toggle) toggle.textContent = '▾';
+        }
+        parent = parent.parentElement;
+      }
+    }
+  });
+
+  document.getElementById('stat-matches').textContent = q ? matches : '—';
+}
+
+function highlight(text, query) {
+  const re = new RegExp('(' + escRegex(query) + ')', 'gi');
+  return escHtml(text).replace(re, '<mark>$1</mark>');
+}
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
+function clearSearch() {
+  document.getElementById('search-input').value = '';
+  doSearch('');
+}
+
+// ═══════════════════════════════════════════════
+//  EXPAND / COLLAPSE ALL
+// ═══════════════════════════════════════════════
+function expandAll() {
+  document.querySelectorAll('.children-list').forEach(ul => ul.classList.remove('collapsed'));
+  document.querySelectorAll('.toggle-btn:not(.leaf)').forEach(b => b.textContent = '▾');
+}
+function collapseAll() {
+  document.querySelectorAll('.children-list').forEach(ul => ul.classList.add('collapsed'));
+  document.querySelectorAll('.toggle-btn:not(.leaf)').forEach(b => b.textContent = '▸');
+}
+</script>
+</body>
+</html>
