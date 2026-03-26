@@ -1,260 +1,65 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Certificadora — Índice</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#07080d;--surf:#0d0f18;--card:#111420;--bdr:#1e2236;
-  --acc:#4f9eff;--gold:#c9a84c;--ok:#3ecf8e;
-  --tx:#d8dce8;--dim:#5a607a;
-  --serif:'DM Serif Display',Georgia,serif;
-  --mono:'JetBrains Mono','Courier New',monospace;
-}
-body{background:var(--bg);color:var(--tx);font-family:var(--mono);font-size:13px;min-height:100vh}
-body::before{content:'';position:fixed;inset:0;
-  background-image:linear-gradient(rgba(79,158,255,.03)1px,transparent 1px),
-                   linear-gradient(90deg,rgba(79,158,255,.03)1px,transparent 1px);
-  background-size:40px 40px;pointer-events:none;z-index:0}
-header{position:relative;z-index:10;border-bottom:1px solid var(--bdr);
-  background:linear-gradient(180deg,#0a0c14 0%,transparent 100%);
-  padding:28px 40px 20px;display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap}
-.logo h1{font-family:var(--serif);font-size:2.2rem;letter-spacing:-.02em;color:#fff;line-height:1}
-.logo h1 span{color:var(--gold)}
-.logo p{color:var(--dim);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-top:5px}
-.hmeta{margin-left:auto;text-align:right;font-size:11px;color:var(--dim);line-height:1.9}
-.hmeta strong{color:var(--acc)}
-.hmeta a{color:var(--gold);text-decoration:none}
-.toolbar{position:relative;z-index:10;padding:12px 40px;display:flex;
-  gap:8px;align-items:center;border-bottom:1px solid var(--bdr);
-  background:var(--surf);flex-wrap:wrap}
-.sw{position:relative;flex:1;max-width:360px;min-width:180px}
-.sw input{width:100%;background:var(--card);border:1px solid var(--bdr);
-  border-radius:5px;color:var(--tx);font-family:var(--mono);font-size:12px;
-  padding:7px 10px 7px 30px;outline:none;transition:border-color .2s}
-.sw input:focus{border-color:var(--acc)}
-.sw::before{content:'⌕';position:absolute;left:8px;top:50%;transform:translateY(-50%);
-  color:var(--dim);font-size:15px;pointer-events:none}
-.btn{background:var(--card);border:1px solid var(--bdr);color:var(--tx);
-  font-family:var(--mono);font-size:11px;padding:5px 12px;border-radius:4px;
-  cursor:pointer;transition:all .15s;white-space:nowrap}
-.btn:hover{background:var(--bdr);border-color:var(--acc);color:#fff}
-.sbadge{margin-left:auto;display:flex;gap:16px}
-.stat .n{font-size:17px;font-weight:600;color:var(--acc);line-height:1;text-align:center}
-.stat .l{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.07em}
-main{position:relative;z-index:1;padding:24px 40px;max-width:1060px}
-ul.tree,ul.ch{list-style:none;padding:0;margin:0}
-.nrow{display:flex;align-items:flex-start;padding:1px 0}
-.indent{display:flex;flex-shrink:0}
-.il{width:20px;flex-shrink:0;position:relative}
-.il.lv::before{content:'';position:absolute;left:9px;top:0;bottom:0;width:1px;background:var(--bdr)}
-.tog{flex-shrink:0;background:none;border:none;color:var(--dim);cursor:pointer;
-  font-size:10px;width:18px;height:20px;display:flex;align-items:center;
-  justify-content:center;border-radius:3px;margin-top:1px;transition:all .15s;user-select:none}
-.tog:hover{color:var(--acc);background:var(--bdr)}
-.tog.leaf{color:var(--bdr);cursor:default}
-.tog.leaf:hover{background:none;color:var(--bdr)}
-.nc{flex:1;min-width:0;padding:2px 6px 2px 3px;border-radius:4px;transition:background .12s;cursor:pointer}
-.nc:hover{background:var(--card)}
-.nname{line-height:1.55;word-break:break-word}
-.nname.done{text-decoration:line-through;color:var(--dim)}
-.nname mark{background:rgba(79,158,255,.22);color:#fff;border-radius:2px;padding:0 2px}
-.nnote{font-size:11px;color:var(--dim);margin-top:2px;line-height:1.5;
-  border-left:2px solid var(--bdr);padding-left:7px;margin-left:2px}
-.nnote mark{background:rgba(79,158,255,.15)}
-ul.ch{overflow:hidden}
-ul.ch.closed{display:none}
-.d0>.nrow>.nc>.nname{color:#fff;font-size:14px;font-weight:600}
-.d1>.nrow>.nc>.nname{color:#c8d4f0}
-.d2>.nrow>.nc>.nname{color:#a8b8d8}
-#status{text-align:center;padding:70px 20px;color:var(--dim)}
-#status .big{font-family:var(--serif);font-size:2.2rem;color:var(--bdr);margin-bottom:10px}
-footer{position:relative;z-index:10;border-top:1px solid var(--bdr);
-  padding:14px 40px;font-size:11px;color:var(--dim);
-  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
-footer a{color:var(--acc);text-decoration:none}
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
-@keyframes fi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-.ni{animation:fi .16s ease both}
-</style>
-</head>
-<body>
-<header>
-  <div class="logo">
-    <h1>INTELECTTA <span>Cert</span></h1>
-    <p>Índice de Conhecimento · WorkFlowy Tree</p>
-  </div>
-  <div class="hmeta">
-    <div>Fonte: <strong>WorkFlowy API</strong></div>
-    <div>Atualizado: <strong id="pub-date">—</strong></div>
-    <div><a href="https://certsigner.com" target="_blank">certsigner.com</a></div>
-  </div>
-</header>
-<div class="toolbar">
-  <div class="sw"><input id="q" type="text" placeholder="Buscar nós e notas…" autocomplete="off"></div>
-  <button class="btn" onclick="expandAll()">▾ Expandir tudo</button>
-  <button class="btn" onclick="collapseAll()">▸ Recolher tudo</button>
-  <button class="btn" onclick="clearQ()">✕ Limpar</button>
-  <div class="sbadge">
-    <div class="stat"><div class="n" id="sTotal">–</div><div class="l">Total</div></div>
-    <div class="stat"><div class="n" id="sMatch">–</div><div class="l">Match</div></div>
-  </div>
-</div>
-<main>
-  <ul id="tree" class="tree">
-    <div id="status">
-      <div class="big">⬡</div>
-      <p>Árvore não carregada.<br>Use o <strong>WorkFlowy Tree Exporter</strong> para publicar.</p>
-    </div>
-  </ul>
-</main>
-<footer>
-  <span>INTELECTTA Certificadora · <a href="https://certsigner.com">certsigner.com</a></span>
-  <span id="fstats"></span>
-</footer>
-<script>
-// DATA — replaced by WFExporter on each publish
-const WF_DATA = null;
-
-const IDX = [];
-let TOTAL = 0;
-
-document.addEventListener('DOMContentLoaded', () => {
-  const nodes = rootNodes(WF_DATA);
-  if (!nodes || !nodes.length) return;
-  document.getElementById('status').remove();
-  const ul = document.getElementById('tree');
-  nodes.forEach(n => ul.appendChild(mkNode(n, 0, [])));
-  const ts = new Date().toLocaleString('pt-BR');
-  document.getElementById('pub-date').textContent = ts;
-  document.getElementById('sTotal').textContent = TOTAL;
-  document.getElementById('fstats').textContent = TOTAL + ' nos · ' + nodes.length + ' raizes';
-  document.getElementById('q').addEventListener('input', e => search(e.target.value));
-});
-
-function rootNodes(d) {
-  if (!d) return null;
-  if (Array.isArray(d)) return d;
-  if (d.items && d.items.length) return d.items;
-  try { return d.projectTreeData.mainProjectTreeInfo.rootProjectChildren; } catch(e) {}
-  return null;
-}
-
-function mkNode(node, depth, pOpen) {
-  const name = node.nm != null ? node.nm : (node.name || '');
-  const note = node.no != null ? node.no : (node.note || '');
-  const done = !!(node.cp || node.completedAt);
-  const kids = node.ch != null ? node.ch : (node.children || []);
-  TOTAL++;
-
-  const li = document.createElement('li');
-  li.className = 'ni d' + Math.min(depth, 4);
-
-  const row = document.createElement('div');
-  row.className = 'nrow';
-
-  // indent guides
-  const ind = document.createElement('div');
-  ind.className = 'indent';
-  for (let i = 0; i < depth; i++) {
-    const g = document.createElement('div');
-    g.className = 'il' + (pOpen[i] ? ' lv' : '');
-    ind.appendChild(g);
-  }
-
-  const tog = document.createElement('button');
-  tog.className = kids.length ? 'tog' : 'tog leaf';
-  tog.textContent = kids.length ? '▸' : '·';
-
-  const nc = document.createElement('div');
-  nc.className = 'nc';
-
-  const nameEl = document.createElement('div');
-  nameEl.className = 'nname' + (done ? ' done' : '');
-  nameEl.textContent = name;
-  nc.appendChild(nameEl);
-
-  let noteEl = null;
-  if (note) {
-    noteEl = document.createElement('div');
-    noteEl.className = 'nnote';
-    noteEl.textContent = note;
-    nc.appendChild(noteEl);
-  }
-
-  row.appendChild(ind);
-  row.appendChild(tog);
-  row.appendChild(nc);
-  li.appendChild(row);
-
-  IDX.push({ li, nameEl, noteEl, nameTxt: name, noteTxt: note });
-
-  if (kids.length) {
-    const cul = document.createElement('ul');
-    cul.className = 'ch closed';
-    kids.forEach((k, i) => {
-      const childOpen = pOpen.concat([i < kids.length - 1]);
-      cul.appendChild(mkNode(k, depth + 1, childOpen));
-    });
-    li.appendChild(cul);
-
-    const doToggle = () => {
-      const isOpen = !cul.classList.contains('closed');
-      cul.classList.toggle('closed', isOpen);
-      tog.textContent = isOpen ? '▸' : '▾';
-    };
-    tog.addEventListener('click', e => { e.stopPropagation(); doToggle(); });
-    nc.addEventListener('click', doToggle);
-  }
-  return li;
-}
-
-function search(q) {
-  const query = q.trim().toLowerCase();
-  let hits = 0;
-  IDX.forEach(({ li, nameEl, noteEl, nameTxt, noteTxt }) => {
-    nameEl.innerHTML = esc(nameTxt);
-    if (noteEl) noteEl.innerHTML = esc(noteTxt);
-    if (!query) { li.style.display = ''; return; }
-    const match = nameTxt.toLowerCase().includes(query) || noteTxt.toLowerCase().includes(query);
-    li.style.display = match ? '' : 'none';
-    if (match) {
-      hits++;
-      nameEl.innerHTML = hi(nameTxt, q);
-      if (noteEl) noteEl.innerHTML = hi(noteTxt, q);
-      let p = li.parentElement;
-      while (p && p.id !== 'tree') {
-        if (p.classList.contains('ch') && p.classList.contains('closed')) {
-          p.classList.remove('closed');
-          const t = p.previousElementSibling && p.previousElementSibling.querySelector('.tog');
-          if (t && !t.classList.contains('leaf')) t.textContent = '▾';
-        }
-        p = p.parentElement;
-      }
-    }
-  });
-  document.getElementById('sMatch').textContent = query ? hits : '–';
-}
-
-function hi(text, q) {
-  return esc(text).replace(new RegExp('(' + escRe(q) + ')', 'gi'), '<mark>$1</mark>');
-}
-function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function escRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
-function clearQ() { document.getElementById('q').value = ''; search(''); }
-function expandAll() {
-  document.querySelectorAll('.ch').forEach(u => u.classList.remove('closed'));
-  document.querySelectorAll('.tog:not(.leaf)').forEach(b => b.textContent = '▾');
-}
-function collapseAll() {
-  document.querySelectorAll('.ch').forEach(u => u.classList.add('closed'));
-  document.querySelectorAll('.tog:not(.leaf)').forEach(b => b.textContent = '▸');
-}
-</script>
-</body>
-</html>
+- Certificadora 
+  - Intro
+    - projeto de propriedade e autoria de FCS, para valorizar a ação criativa dos autores. 
+  - Público-alvo
+    - Devs (programadores)
+    - Cientistas
+      - <a href="http://sciencecertifier.com">sciencecertifier.com</a>
+      - artCertifier.com
+      - musicCertifier. com
+      - Muitos querendo provar a anterioridade da ideia
+        - patentes ( demoram )
+        - periódicos (ideia sem resultados ?) 
+    - Estudante
+    - Artista / musico
+    - Escritores
+    - Autoconhecimento
+    - Projetos 
+  - Aplicaçoes
+    - Próprias ideias:
+      - Certificar rápida e instantaneamente 
+      - divulgar na busca
+      - Motivar e direcionar criadores para certas área de criação de ideais ou textos , por exemplo LawBank
+    - Colocar chat entre Criadores semelhantes ? 
+    - Convênio com LinkedIn ? 
+  - Administração 
+    - Opções de admin.(uma delas) 
+      - 1 registrar  empresa própria   e site separado da Iectta exemplo : <a href="http://www.certifix.com">www.</a>scienceCertifier.com
+      - 2 colocar como braço da Iectta.com
+      - 3 doar 50% de direitos   da certificadora  por 12 meses no <a href="http://www.berklab.com">www.berklab.com</a>,  para alavancar com &quot;nome famoso&quot; . e alavancar o lab: depois de 12 meses retorna para teu nome, tua administração e teu site 
+  - Branding
+    - domínio CERTSIGNER.COM
+      - Certifyx
+      - Certivox
+      - Certinex
+      - Certilogix
+      - Certizon
+      - Certivium
+      - Certcore
+      - Certnova
+      - Certpulse
+      - Certlinka
+      - Certbridge
+      - Certwave
+      - Certsync
+      - Certbase
+      - Certsphere
+      - Certlock
+      - Certgrid
+      - Certtrust
+      - Certline
+      - Certflow
+      - Certnetix
+      - Certnity
+      - Certedge
+      - Certium
+      - Certpath
+      - Certaxis
+      - Certhubix
+      - Certlabs
+      - Certsecure
+      - Certverse
+    - Validação 
+    - Video Criando :
+  - Software
+  - ToDo
