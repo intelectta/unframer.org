@@ -295,7 +295,7 @@ footer a{color:var(--acc);text-decoration:none}
 // ═══════════════════════════════════════════════
 //  DATA
 // ═══════════════════════════════════════════════
-const WF_DATA = {"items": [{"id": "a9142d8c-8de6-4815-62f2-2930c118c8d0", "nm": "Branding", "no": "", "cp": false, "ch": [{"id": "9e09af55-b860-a957-ab4e-ccc46b4b7eda", "nm": "domínio <a href=\"http://CERTSIGNER.COM\">CERTSIGNER.COM</a>", "no": "", "cp": false, "ch": []}, {"id": "220988a9-c508-fd26-5017-69c1a4fb1bcf", "nm": "Validação ", "no": "", "cp": false, "ch": [{"id": "2be01031-5eb6-2807-c52a-15538dadc2b2", "nm": "Desenvolver com bibliotecarios", "no": "", "cp": false, "ch": []}]}, {"id": "c4a4de64-d938-f047-b6d7-b0f3025667a2", "nm": "Video Criando :", "no": "", "cp": false, "ch": [{"id": "36d607fb-46ad-002f-fe6c-5f9c3323783a", "nm": "Gota de água no centro da Tela", "no": "", "cp": false, "ch": []}, {"id": "c5609ff4-bc8b-d452-d03d-ddb1cbca1e45", "nm": "Raio de Luz vem de cima , entrando centro da gota", "no": "", "cp": false, "ch": []}, {"id": "640b6ade-cb34-4859-b36b-1d2ede95cd2c", "nm": "Gota cresce e transforma-se em SOL forte e flamejante que brilha e rotaciona os raios  em tida a tela ", "no": "", "cp": false, "ch": []}]}]}]};
+const WF_DATA = {"items": [{"id": "86b5cc3f-c421-7393-4329-6230062baf06", "nm": "Clientes", "no": "", "cp": false, "ch": [{"id": "3ddac681-5d4e-8dde-a0f2-382c0115a5fc", "nm": "Cadastro", "no": "", "cp": false, "ch": []}, {"id": "4ebf311f-339d-01b5-b84e-e2b43410cdcc", "nm": "Planos", "no": "", "cp": false, "ch": [{"id": "985f4d4f-7ee6-1550-7868-3b40107f4c5d", "nm": "Exemplos", "no": "", "cp": false, "ch": [{"id": "9276f1ec-50aa-9e04-367d-826918a757bd", "nm": "Free", "no": "", "cp": false, "ch": [{"id": "d784d469-d6c1-0c92-680d-9a80ff6d15ac", "nm": "Somente ideia ", "no": "", "cp": false, "ch": [{"id": "60d25eb3-1be3-b121-9bfc-ecaa0cf0df36", "nm": "até uma pagina", "no": "", "cp": false, "ch": []}]}]}, {"id": "166db89b-bcc2-52ea-8b9c-d428bde9ab09", "nm": "Pro", "no": "", "cp": false, "ch": [{"id": "ef0d16e2-beef-3699-bee3-31bbdfa59c08", "nm": "Texto", "no": "", "cp": false, "ch": []}, {"id": "61c0c2aa-7fad-6cb8-7a00-6815fbd0f7d1", "nm": "Fotos", "no": "", "cp": false, "ch": []}, {"id": "65fda8e2-ae6e-a216-ee9d-9cdcd2bf9953", "nm": "Audio ", "no": "", "cp": false, "ch": []}]}, {"id": "90e24191-a4cd-1808-1bca-f456b71c4d69", "nm": "Premium", "no": "", "cp": false, "ch": [{"id": "3e1b5214-2c44-6c9d-b6cd-d1e22a32e648", "nm": "Texto", "no": "", "cp": false, "ch": []}, {"id": "f250e4f5-09ef-fe98-9b96-ff398641883e", "nm": "Fotos", "no": "", "cp": false, "ch": []}, {"id": "08d02b80-c908-d4ed-9160-e616e000be5d", "nm": "Audio", "no": "", "cp": false, "ch": []}, {"id": "dbc0e3c5-db9e-5f4e-c41b-95bde1aac661", "nm": "Video", "no": "", "cp": false, "ch": []}]}]}]}]}]};
 
 const IDX = [];
 let TOTAL = 0;
@@ -459,7 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (idx < nodes.length) {
       requestAnimationFrame(buildChunk);
     } else {
-      document.getElementById('pub-date').textContent = '2026-03-28 22:31:58';
+      document.getElementById('pub-date').textContent = '2026-03-28 22:39:03';
       document.getElementById('sTotal').textContent = TOTAL;
       document.getElementById('fstats').textContent = TOTAL + ' nos · ' + nodes.length + ' raizes';
       document.getElementById('q').addEventListener('input', e => search(e.target.value));
