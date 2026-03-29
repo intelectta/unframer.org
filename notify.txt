@@ -1,5 +1,4 @@
-Intelectta informa ultima atualizacao do Projeto [PROJETO]
+Intelectta informa ultima atualizacao do *Projeto [PROJETO]*
 com atualizacao do item **[PATH]**
 às [timedate]
-
 Acesse: [URL]
