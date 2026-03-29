@@ -1,0 +1,4 @@
+Intelectta informa ultima atualizacao do Projeto [PATH]
+as [timedate]
+
+Acesse: [URL]
