@@ -119,7 +119,7 @@ footer a{color:var(--acc);text-decoration:none}
 </footer>
 <script>
 // DATA — replaced by WFExporter on each publish
-const WF_DATA = {"items": [{"id": "392d0127-5484-5820-2415-7f357745b86a", "nm": "Projetos", "no": "", "cp": false, "ch": [{"id": "7c5934de-03ed-fe84-598f-290083f9f12d", "nm": "Cadastro", "no": "", "cp": false, "ch": []}, {"id": "2750e2ec-3f5b-77de-c52c-e69032a87d54", "nm": "opções - checkboxes", "no": "", "cp": false, "ch": [{"id": "bb690adc-2a43-3195-09f0-614cfc17cdbc", "nm": "Divulgacao", "no": "", "cp": false, "ch": []}]}]}]};
+const WF_DATA = {"items": [{"id": "a2d5773b-2123-7f25-7e8b-d987ded09048", "nm": "Intro", "no": "", "cp": false, "ch": [{"id": "c1c98d33-5b47-4793-db49-164246411679", "nm": "projeto de propriedade e autoria de FCS, para valorizar a ação criativa dos autores. ", "no": "", "cp": false, "ch": []}]}]};
 
 const IDX = [];
 let TOTAL = 0;
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const ul = document.getElementById('tree');
   nodes.forEach(n => ul.appendChild(mkNode(n, 0, [])));
   const ts = new Date().toLocaleString('pt-BR');
-  document.getElementById('pub-date').textContent = '2026-03-28 22:11:56';
+  document.getElementById('pub-date').textContent = '2026-03-28 22:19:52';
   document.getElementById('sTotal').textContent = TOTAL;
   document.getElementById('fstats').textContent = TOTAL + ' nos · ' + nodes.length + ' raizes';
   document.getElementById('q').addEventListener('input', e => search(e.target.value));
