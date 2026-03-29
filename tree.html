@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Certificadora — Índice</title>
+<title id='page-title'>Índice</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400;600&family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;600&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -254,13 +254,13 @@ footer a{color:var(--acc);text-decoration:none}
 <!-- ══ HEADER ══ -->
 <header>
   <div class="logo">
-    <h1>INTELECTTA <span>Cert</span></h1>
-    <p>Índice de Conhecimento · WorkFlowy Tree</p>
+    <h1 id="h-site">SITE</h1>
+    <p id="h-branch">Branch · WorkFlowy Tree</p>
   </div>
   <div class="hmeta">
     <div>Fonte: <strong>WorkFlowy API</strong></div>
     <div>Atualizado: <strong id="pub-date">—</strong></div>
-    <div><a href="https://certsigner.com" target="_blank">certsigner.com</a></div>
+    <div><a id="h-link" href="#" target="_blank">—</a></div>
   </div>
   <button class="gear-btn" onclick="openSP()" title="Configurações">⚙</button>
 </header>
@@ -287,7 +287,7 @@ footer a{color:var(--acc);text-decoration:none}
 </main>
 
 <footer>
-  <span>INTELECTTA Certificadora · <a href="https://certsigner.com">certsigner.com</a></span>
+  <span id="f-site">INTELECTTA · <a id="f-link" href="#" target="_blank">—</a></span>
   <span id="fstats"></span>
 </footer>
 
@@ -295,7 +295,8 @@ footer a{color:var(--acc);text-decoration:none}
 // ═══════════════════════════════════════════════
 //  DATA
 // ═══════════════════════════════════════════════
-const WF_DATA = {"items": [{"id": "a2d5773b-2123-7f25-7e8b-d987ded09048", "nm": "Intro", "no": "", "cp": false, "ch": [{"id": "c1c98d33-5b47-4793-db49-164246411679", "nm": "projeto de propriedade e autoria de FCS, para valorizar a ação criativa dos autores. ", "no": "", "cp": false, "ch": []}]}]};
+const WF_DATA = null;
+const WF_META = null;  // {site, branch, path, updated}
 
 const IDX = [];
 let TOTAL = 0;
@@ -424,6 +425,35 @@ document.addEventListener('DOMContentLoaded', () => {
   buildThemeGrid();
   applySettings(getSettings());
 
+  // ── Apply WF_META (site name + branch) ──────────────────
+  if (WF_META) {
+    const site   = WF_META.site   || '';
+    const branch = WF_META.branch || '';
+    const path   = WF_META.path   || '#';
+    const url    = path.startsWith('http') ? path : '#';
+
+    // derive display name: split site from URL if needed
+    const siteName = site || (url !== '#' ? url.replace(/^https?:\/\//, '').split('/')[0] : 'SITE');
+
+    // Header h1: siteName in two parts split on first space for accent
+    const parts = siteName.split(' ');
+    const h1 = document.getElementById('h-site');
+    if (parts.length > 1) {
+      h1.innerHTML = parts.slice(0,-1).join(' ') + ' <span>' + parts.slice(-1)[0] + '</span>';
+    } else {
+      h1.innerHTML = '<span>' + siteName + '</span>';
+    }
+    document.getElementById('h-branch').textContent = branch || 'Árvore WorkFlowy';
+    const link = document.getElementById('h-link');
+    link.href = url; link.textContent = siteName.toLowerCase();
+    const flink = document.getElementById('f-link');
+    flink.href = url; flink.textContent = siteName.toLowerCase();
+    document.getElementById('f-site').innerHTML =
+      siteName + ' · <a id="f-link2" href="' + url + '" target="_blank">' +
+      siteName.toLowerCase() + '</a>';
+    document.title = (branch ? siteName + ' — ' + branch : siteName);
+  }
+
   const nodes = rootNodes(WF_DATA);
 
   // helper to dismiss loading UI
@@ -459,7 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (idx < nodes.length) {
       requestAnimationFrame(buildChunk);
     } else {
-      document.getElementById('pub-date').textContent = '2026-03-28 23:22:30';
+      document.getElementById('pub-date').textContent = new Date().toLocaleString('pt-BR');
       document.getElementById('sTotal').textContent = TOTAL;
       document.getElementById('fstats').textContent = TOTAL + ' nos · ' + nodes.length + ' raizes';
       document.getElementById('q').addEventListener('input', e => search(e.target.value));
