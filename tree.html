@@ -295,7 +295,7 @@ footer a{color:var(--acc);text-decoration:none}
 // ═══════════════════════════════════════════════
 //  DATA
 // ═══════════════════════════════════════════════
-const WF_DATA = {"items": [{"id": "4ebf311f-339d-01b5-b84e-e2b43410cdcc", "nm": "Planos", "no": "", "cp": false, "ch": [{"id": "985f4d4f-7ee6-1550-7868-3b40107f4c5d", "nm": "Exemplos", "no": "", "cp": false, "ch": [{"id": "9276f1ec-50aa-9e04-367d-826918a757bd", "nm": "Free", "no": "", "cp": false, "ch": [{"id": "d784d469-d6c1-0c92-680d-9a80ff6d15ac", "nm": "Somente ideia ", "no": "", "cp": false, "ch": [{"id": "60d25eb3-1be3-b121-9bfc-ecaa0cf0df36", "nm": "até uma pagina", "no": "", "cp": false, "ch": []}]}]}, {"id": "166db89b-bcc2-52ea-8b9c-d428bde9ab09", "nm": "Pro", "no": "", "cp": false, "ch": [{"id": "ef0d16e2-beef-3699-bee3-31bbdfa59c08", "nm": "Texto", "no": "", "cp": false, "ch": []}, {"id": "61c0c2aa-7fad-6cb8-7a00-6815fbd0f7d1", "nm": "Fotos", "no": "", "cp": false, "ch": []}, {"id": "65fda8e2-ae6e-a216-ee9d-9cdcd2bf9953", "nm": "Audio ", "no": "", "cp": false, "ch": []}]}, {"id": "90e24191-a4cd-1808-1bca-f456b71c4d69", "nm": "Premium", "no": "", "cp": false, "ch": [{"id": "3e1b5214-2c44-6c9d-b6cd-d1e22a32e648", "nm": "Texto", "no": "", "cp": false, "ch": []}, {"id": "f250e4f5-09ef-fe98-9b96-ff398641883e", "nm": "Fotos", "no": "", "cp": false, "ch": []}, {"id": "08d02b80-c908-d4ed-9160-e616e000be5d", "nm": "Audio", "no": "", "cp": false, "ch": []}, {"id": "dbc0e3c5-db9e-5f4e-c41b-95bde1aac661", "nm": "Video", "no": "", "cp": false, "ch": []}]}]}]}]};
+const WF_DATA = {"items": [{"id": "ceca302b-d827-4e88-86e4-d1393f0d91a5", "nm": "Aplicaçoes", "no": "", "cp": false, "ch": [{"id": "de536d6a-794a-b714-5230-841702051322", "nm": "Próprias ideias:", "no": "", "cp": false, "ch": [{"id": "69ef119d-b5d1-a2ec-bb5b-ed5d4861db2c", "nm": "Certificar rápida e instantaneamente ", "no": "", "cp": false, "ch": []}, {"id": "f3f0ce12-a786-76ed-11fc-7a14840aacf8", "nm": "divulgar na busca", "no": "", "cp": false, "ch": []}, {"id": "83382216-1765-4107-9718-df15dba024d9", "nm": "Motivar e direcionar criadores para certas área de criação de ideais ou textos , por exemplo LawBank", "no": "", "cp": false, "ch": []}]}, {"id": "d8601e10-14c8-5c92-b5d5-3cdefff1a8d1", "nm": "Colocar chat entre Criadores semelhantes ? ", "no": "", "cp": false, "ch": []}, {"id": "177c2143-a780-8c3e-0137-19833eab7952", "nm": "Convênio com LinkedIn ? ", "no": "", "cp": false, "ch": []}]}]};
 const WF_META = {"site": "unframer.org", "branch": "Software", "path": "https://unframer.org/tree.html", "updated": "2026-03-29 10:59"};  // {site, branch, path, updated}
 
 const IDX = [];
@@ -489,7 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (idx < nodes.length) {
       requestAnimationFrame(buildChunk);
     } else {
-      document.getElementById('pub-date').textContent = '2026-03-29 11:28:13';
+      document.getElementById('pub-date').textContent = '2026-03-29 11:43:09';
       document.getElementById('sTotal').textContent = TOTAL;
       document.getElementById('fstats').textContent = TOTAL + ' nos · ' + nodes.length + ' raizes';
       document.getElementById('q').addEventListener('input', e => search(e.target.value));
