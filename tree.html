@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Certificadora — Índice</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400;600&family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;600&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* ── THEMES ── */
+:root{
+  --bg:#07080d;--surf:#0d0f18;--card:#111420;--bdr:#1e2236;
+  --acc:#4f9eff;--gold:#c9a84c;--ok:#3ecf8e;
+  --tx:#d8dce8;--dim:#5a607a;
+  --serif:'DM Serif Display',Georgia,serif;
+  --sans:'Source Sans 3',system-ui,sans-serif;
+  --mono:'JetBrains Mono','Courier New',monospace;
+  --body-font:var(--mono);
+  --base-size:13px;
+  --zoom:1;
+}
+[data-theme="midnight"]{--bg:#07080d;--surf:#0d0f18;--card:#111420;--bdr:#1e2236;--acc:#4f9eff;--gold:#c9a84c;--tx:#d8dce8;--dim:#5a607a}
+[data-theme="obsidian"]{--bg:#0a0a0a;--surf:#111;--card:#181818;--bdr:#2a2a2a;--acc:#a78bfa;--gold:#e2b96a;--tx:#e0e0e0;--dim:#555}
+[data-theme="forest"]{--bg:#0b120e;--surf:#111a14;--card:#16231a;--bdr:#1e3328;--acc:#4ade80;--gold:#d4a853;--tx:#d1e8d8;--dim:#4a6655}
+[data-theme="ocean"]{--bg:#020d18;--surf:#06192e;--card:#092542;--bdr:#0e3560;--acc:#38bdf8;--gold:#f59e0b;--tx:#bde0f8;--dim:#2d6080}
+[data-theme="crimson"]{--bg:#0f0505;--surf:#180c0c;--card:#201010;--bdr:#3a1414;--acc:#f87171;--gold:#fbbf24;--tx:#f0d8d8;--dim:#6b3333}
+[data-theme="paper"]{--bg:#f5f2eb;--surf:#eee9df;--card:#e8e2d5;--bdr:#d5ccbc;--acc:#2563eb;--gold:#b45309;--tx:#2c2416;--dim:#8a7e6a}
+[data-theme="slate"]{--bg:#1e2028;--surf:#252830;--card:#2c2f3a;--bdr:#383c4a;--acc:#94a3b8;--gold:#e2a44a;--tx:#d4d8e8;--dim:#5a6280}
+[data-theme="amber"]{--bg:#1a1200;--surf:#221800;--card:#2c2000;--bdr:#3d2e00;--acc:#fbbf24;--gold:#f97316;--tx:#fef3c7;--dim:#7a6020}
+[data-theme="matrix"]{--bg:#000e00;--surf:#001500;--card:#001c00;--bdr:#002a00;--acc:#00ff41;--gold:#39ff14;--tx:#b8ffb8;--dim:#1a5c1a}
+
+body{background:var(--bg);color:var(--tx);font-family:var(--body-font);font-size:calc(var(--base-size) * var(--zoom));min-height:100vh;transition:background .25s,color .25s}
+body::before{content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(79,158,255,.03)1px,transparent 1px),
+                   linear-gradient(90deg,rgba(79,158,255,.03)1px,transparent 1px);
+  background-size:40px 40px;pointer-events:none;z-index:0}
+[data-theme="paper"] body::before{background-image:none}
+
+/* ── HEADER ── */
+header{position:relative;z-index:10;border-bottom:1px solid var(--bdr);
+  background:linear-gradient(180deg,var(--surf) 0%,transparent 100%);
+  padding:24px 40px 18px;display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.logo h1{font-family:var(--serif);font-size:2.1rem;letter-spacing:-.02em;color:var(--tx);line-height:1}
+.logo h1 span{color:var(--gold)}
+.logo p{color:var(--dim);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-top:5px}
+.hmeta{margin-left:auto;text-align:right;font-size:11px;color:var(--dim);line-height:1.9}
+.hmeta strong{color:var(--acc)}
+.hmeta a{color:var(--gold);text-decoration:none}
+
+/* gear icon button */
+.gear-btn{background:none;border:1px solid var(--bdr);color:var(--dim);cursor:pointer;
+  border-radius:6px;padding:6px 9px;font-size:16px;line-height:1;
+  transition:all .2s;position:relative;flex-shrink:0;align-self:center}
+.gear-btn:hover{border-color:var(--acc);color:var(--acc);transform:rotate(30deg)}
+
+/* ── SETTINGS PANEL ── */
+#settings-panel{
+  position:fixed;top:0;right:0;height:100vh;width:300px;
+  background:var(--surf);border-left:1px solid var(--bdr);
+  z-index:1000;transform:translateX(100%);
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+  overflow-y:auto;display:flex;flex-direction:column;
+}
+#settings-panel.open{transform:translateX(0)}
+.sp-head{padding:20px;border-bottom:1px solid var(--bdr);display:flex;justify-content:space-between;align-items:center}
+.sp-head h2{font-family:var(--serif);font-size:1.2rem;color:var(--tx)}
+.sp-close{background:none;border:none;color:var(--dim);font-size:20px;cursor:pointer;padding:2px 6px;border-radius:4px}
+.sp-close:hover{color:var(--acc)}
+.sp-section{padding:18px 20px;border-bottom:1px solid var(--bdr)}
+.sp-section label{display:block;font-size:10px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+
+/* zoom slider */
+.zoom-row{display:flex;align-items:center;gap:10px}
+.zoom-row span{font-size:11px;color:var(--dim);min-width:34px;text-align:right}
+input[type=range]{flex:1;accent-color:var(--acc);height:4px;cursor:pointer}
+
+/* font selector */
+.font-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.font-opt{background:var(--card);border:1px solid var(--bdr);color:var(--tx);
+  font-size:11px;padding:7px 8px;border-radius:5px;cursor:pointer;text-align:center;
+  transition:all .15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.font-opt:hover{border-color:var(--acc)}
+.font-opt.active{border-color:var(--acc);background:rgba(79,158,255,.12);color:var(--acc)}
+
+/* theme swatches */
+.theme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.theme-swatch{border-radius:8px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:all .15s;aspect-ratio:4/3;position:relative}
+.theme-swatch:hover{border-color:var(--acc);transform:scale(1.04)}
+.theme-swatch.active{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc)}
+.theme-swatch .sw-bg{width:100%;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:5px}
+.theme-swatch .sw-name{font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;opacity:.9}
+.theme-swatch .sw-dots{display:flex;gap:3px;margin-top:3px}
+.theme-swatch .sw-dots span{width:8px;height:8px;border-radius:50%}
+
+/* overlay */
+#sp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:999;
+  opacity:0;pointer-events:none;transition:opacity .28s}
+#sp-overlay.open{opacity:1;pointer-events:all}
+
+/* ── TOOLBAR ── */
+.toolbar{position:relative;z-index:10;padding:10px 40px;display:flex;
+  gap:8px;align-items:center;border-bottom:1px solid var(--bdr);
+  background:var(--surf);flex-wrap:wrap}
+.sw{position:relative;flex:1;max-width:360px;min-width:180px}
+.sw input{width:100%;background:var(--card);border:1px solid var(--bdr);
+  border-radius:5px;color:var(--tx);font-family:inherit;font-size:12px;
+  padding:7px 10px 7px 30px;outline:none;transition:border-color .2s}
+.sw input:focus{border-color:var(--acc)}
+.sw::before{content:'⌕';position:absolute;left:8px;top:50%;transform:translateY(-50%);
+  color:var(--dim);font-size:15px;pointer-events:none}
+.btn{background:var(--card);border:1px solid var(--bdr);color:var(--tx);
+  font-family:inherit;font-size:11px;padding:5px 12px;border-radius:4px;
+  cursor:pointer;transition:all .15s;white-space:nowrap}
+.btn:hover{background:var(--bdr);border-color:var(--acc);color:#fff}
+.sbadge{margin-left:auto;display:flex;gap:16px}
+.stat .n{font-size:17px;font-weight:600;color:var(--acc);line-height:1;text-align:center}
+.stat .l{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.07em}
+
+/* ── TREE ── */
+main{position:relative;z-index:1;padding:24px 40px;max-width:1060px}
+ul.tree,ul.ch{list-style:none;padding:0;margin:0}
+.nrow{display:flex;align-items:flex-start;padding:1px 0}
+.indent{display:flex;flex-shrink:0}
+.il{width:20px;flex-shrink:0;position:relative}
+.il.lv::before{content:'';position:absolute;left:9px;top:0;bottom:0;width:1px;background:var(--bdr)}
+.tog{flex-shrink:0;background:none;border:none;color:var(--dim);cursor:pointer;
+  font-size:10px;width:18px;height:20px;display:flex;align-items:center;
+  justify-content:center;border-radius:3px;margin-top:1px;transition:all .15s;user-select:none}
+.tog:hover{color:var(--acc);background:var(--bdr)}
+.tog.leaf{color:var(--bdr);cursor:default}
+.tog.leaf:hover{background:none;color:var(--bdr)}
+.nc{flex:1;min-width:0;padding:2px 6px 2px 3px;border-radius:4px;transition:background .12s;cursor:pointer}
+.nc:hover{background:var(--card)}
+.nname{line-height:1.55;word-break:break-word}
+.nname.done{text-decoration:line-through;color:var(--dim)}
+.nname mark{background:rgba(79,158,255,.22);color:#fff;border-radius:2px;padding:0 2px}
+.nnote{font-size:.9em;color:var(--dim);margin-top:2px;line-height:1.5;
+  border-left:2px solid var(--bdr);padding-left:7px;margin-left:2px}
+.nnote mark{background:rgba(79,158,255,.15)}
+ul.ch{overflow:hidden}
+ul.ch.closed{display:none}
+.d0>.nrow>.nc>.nname{color:var(--tx);font-size:1.08em;font-weight:600}
+.d1>.nrow>.nc>.nname{color:#c8d4f0}
+.d2>.nrow>.nc>.nname{color:#a8b8d8}
+[data-theme="paper"] .d1>.nrow>.nc>.nname{color:#3a3020}
+[data-theme="paper"] .d2>.nrow>.nc>.nname{color:#5a5040}
+#status{text-align:center;padding:70px 20px;color:var(--dim)}
+#status .big{font-family:var(--serif);font-size:2.2rem;color:var(--bdr);margin-bottom:10px}
+
+/* ── FOOTER ── */
+footer{position:relative;z-index:10;border-top:1px solid var(--bdr);
+  padding:14px 40px;font-size:11px;color:var(--dim);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+footer a{color:var(--acc);text-decoration:none}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
+@keyframes fi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.ni{animation:fi .16s ease both}
+
+/* ── PROGRESS BAR ── */
+#load-bar{position:fixed;top:0;left:0;right:0;height:3px;z-index:9999;
+  background:linear-gradient(90deg,var(--acc),var(--gold),var(--acc));
+  background-size:200% 100%;
+  animation:pbar 1.2s linear infinite;
+  transition:opacity .4s}
+#load-bar.done{opacity:0;pointer-events:none}
+@keyframes pbar{0%{background-position:100% 0}100%{background-position:-100% 0}}
+
+#load-overlay{position:fixed;inset:0;z-index:200;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:16px;background:var(--bg);transition:opacity .5s}
+#load-overlay.done{opacity:0;pointer-events:none}
+.load-text{font-family:var(--mono);font-size:12px;color:var(--dim);letter-spacing:.1em}
+.load-spinner{width:36px;height:36px;border:2px solid var(--bdr);
+  border-top-color:var(--acc);border-radius:50%;
+  animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body data-theme="midnight">
+
+<!-- ══ LOADING ══ -->
+<div id="load-bar"></div>
+<div id="load-overlay">
+  <div class="load-spinner"></div>
+  <div class="load-text" id="load-msg">Carregando árvore…</div>
+</div>
+
+<!-- ══ SETTINGS PANEL ══ -->
+<div id="sp-overlay" onclick="closeSP()"></div>
+<div id="settings-panel">
+  <div class="sp-head">
+    <h2>⚙ Configurações</h2>
+    <button class="sp-close" onclick="closeSP()">✕</button>
+  </div>
+
+  <!-- Zoom -->
+  <div class="sp-section">
+    <label>Zoom da Página</label>
+    <div class="zoom-row">
+      <span style="min-width:24px;text-align:left;font-size:11px">70%</span>
+      <input type="range" id="zoom-slider" min="0.7" max="1.6" step="0.05" value="1"
+             oninput="setZoom(this.value)">
+      <span id="zoom-val">100%</span>
+    </div>
+  </div>
+
+  <!-- Font size -->
+  <div class="sp-section">
+    <label>Tamanho da Fonte Base</label>
+    <div class="zoom-row">
+      <span style="min-width:24px;font-size:11px">10px</span>
+      <input type="range" id="font-slider" min="10" max="18" step="1" value="13"
+             oninput="setFontSize(this.value)">
+      <span id="font-val">13px</span>
+    </div>
+  </div>
+
+  <!-- Font family -->
+  <div class="sp-section">
+    <label>Família de Fontes</label>
+    <div class="font-grid" id="font-grid">
+      <button class="font-opt active" data-font="mono"
+              style="font-family:'JetBrains Mono',monospace" onclick="setFont('mono',this)">JetBrains<br>Mono</button>
+      <button class="font-opt" data-font="ibm"
+              style="font-family:'IBM Plex Mono',monospace" onclick="setFont('ibm',this)">IBM Plex<br>Mono</button>
+      <button class="font-opt" data-font="sans"
+              style="font-family:'Source Sans 3',sans-serif" onclick="setFont('sans',this)">Source<br>Sans 3</button>
+      <button class="font-opt" data-font="serif"
+              style="font-family:'Merriweather',serif" onclick="setFont('serif',this)">Merri-<br>weather</button>
+      <button class="font-opt" data-font="playfair"
+              style="font-family:'Playfair Display',serif" onclick="setFont('playfair',this)">Playfair<br>Display</button>
+      <button class="font-opt" data-font="system"
+              style="font-family:system-ui,sans-serif" onclick="setFont('system',this)">System<br>UI</button>
+    </div>
+  </div>
+
+  <!-- Themes -->
+  <div class="sp-section">
+    <label>Tema de Cores</label>
+    <div class="theme-grid" id="theme-grid"></div>
+  </div>
+
+  <!-- Reset -->
+  <div class="sp-section" style="border-bottom:none">
+    <button class="btn" style="width:100%;justify-content:center"
+            onclick="resetSettings()">↺ Restaurar padrões</button>
+  </div>
+</div>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <div class="logo">
+    <h1>INTELECTTA <span>Cert</span></h1>
+    <p>Índice de Conhecimento · WorkFlowy Tree</p>
+  </div>
+  <div class="hmeta">
+    <div>Fonte: <strong>WorkFlowy API</strong></div>
+    <div>Atualizado: <strong id="pub-date">—</strong></div>
+    <div><a href="https://certsigner.com" target="_blank">certsigner.com</a></div>
+  </div>
+  <button class="gear-btn" onclick="openSP()" title="Configurações">⚙</button>
+</header>
+
+<!-- ══ TOOLBAR ══ -->
+<div class="toolbar">
+  <div class="sw"><input id="q" type="text" placeholder="Buscar nós e notas…" autocomplete="off"></div>
+  <button class="btn" onclick="expandAll()">▾ Expandir tudo</button>
+  <button class="btn" onclick="collapseAll()">▸ Recolher tudo</button>
+  <button class="btn" onclick="clearQ()">✕ Limpar</button>
+  <div class="sbadge">
+    <div class="stat"><div class="n" id="sTotal">–</div><div class="l">Total</div></div>
+    <div class="stat"><div class="n" id="sMatch">–</div><div class="l">Match</div></div>
+  </div>
+</div>
+
+<main>
+  <ul id="tree" class="tree">
+    <div id="status">
+      <div class="big">⬡</div>
+      <p>Árvore não carregada.<br>Use o <strong>WorkFlowy Tree Exporter</strong> para publicar.</p>
+    </div>
+  </ul>
+</main>
+
+<footer>
+  <span>INTELECTTA Certificadora · <a href="https://certsigner.com">certsigner.com</a></span>
+  <span id="fstats"></span>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════
+//  DATA
+// ═══════════════════════════════════════════════
+const WF_DATA = null;
+
+const IDX = [];
+let TOTAL = 0;
+
+// ═══════════════════════════════════════════════
+//  THEMES definition
+// ═══════════════════════════════════════════════
+const THEMES = [
+  { id:'midnight', name:'Midnight', bg:'#07080d', acc:'#4f9eff', tx:'#d8dce8' },
+  { id:'obsidian', name:'Obsidian', bg:'#0a0a0a', acc:'#a78bfa', tx:'#e0e0e0' },
+  { id:'forest',   name:'Forest',  bg:'#0b120e', acc:'#4ade80', tx:'#d1e8d8' },
+  { id:'ocean',    name:'Ocean',   bg:'#020d18', acc:'#38bdf8', tx:'#bde0f8' },
+  { id:'crimson',  name:'Crimson', bg:'#0f0505', acc:'#f87171', tx:'#f0d8d8' },
+  { id:'paper',    name:'Paper',   bg:'#f5f2eb', acc:'#2563eb', tx:'#2c2416' },
+  { id:'slate',    name:'Slate',   bg:'#1e2028', acc:'#94a3b8', tx:'#d4d8e8' },
+  { id:'amber',    name:'Amber',   bg:'#1a1200', acc:'#fbbf24', tx:'#fef3c7' },
+  { id:'matrix',   name:'Matrix',  bg:'#000e00', acc:'#00ff41', tx:'#b8ffb8' },
+];
+
+const FONTS = {
+  mono:     "'JetBrains Mono','Courier New',monospace",
+  ibm:      "'IBM Plex Mono','Courier New',monospace",
+  sans:     "'Source Sans 3',system-ui,sans-serif",
+  serif:    "'Merriweather',Georgia,serif",
+  playfair: "'Playfair Display',Georgia,serif",
+  system:   "system-ui,sans-serif",
+};
+
+// ═══════════════════════════════════════════════
+//  SETTINGS — persist in localStorage
+// ═══════════════════════════════════════════════
+const LS_KEY = 'wf_settings_v1';
+
+function loadSettings() {
+  try { return JSON.parse(localStorage.getItem(LS_KEY)) || {}; } catch { return {}; }
+}
+function saveSettings(obj) {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(obj)); } catch {}
+}
+function getSettings() {
+  return Object.assign({ theme:'midnight', font:'mono', zoom:1, fontSize:13 }, loadSettings());
+}
+
+// ═══════════════════════════════════════════════
+//  APPLY SETTINGS
+// ═══════════════════════════════════════════════
+function applySettings(s) {
+  document.body.setAttribute('data-theme', s.theme);
+  document.body.style.setProperty('--zoom', s.zoom);
+  document.body.style.setProperty('--base-size', s.fontSize + 'px');
+  document.body.style.setProperty('--body-font', FONTS[s.font] || FONTS.mono);
+
+  document.getElementById('zoom-slider').value  = s.zoom;
+  document.getElementById('zoom-val').textContent = Math.round(s.zoom * 100) + '%';
+  document.getElementById('font-slider').value = s.fontSize;
+  document.getElementById('font-val').textContent = s.fontSize + 'px';
+
+  // mark active font
+  document.querySelectorAll('.font-opt').forEach(b => {
+    b.classList.toggle('active', b.dataset.font === s.font);
+  });
+  // mark active theme
+  document.querySelectorAll('.theme-swatch').forEach(el => {
+    el.classList.toggle('active', el.dataset.tid === s.theme);
+  });
+}
+
+function setZoom(v) {
+  const s = getSettings(); s.zoom = parseFloat(v); saveSettings(s); applySettings(s);
+}
+function setFontSize(v) {
+  const s = getSettings(); s.fontSize = parseInt(v); saveSettings(s); applySettings(s);
+}
+function setFont(key, btn) {
+  const s = getSettings(); s.font = key; saveSettings(s); applySettings(s);
+}
+function setTheme(tid) {
+  const s = getSettings(); s.theme = tid; saveSettings(s); applySettings(s);
+}
+function resetSettings() {
+  localStorage.removeItem(LS_KEY);
+  applySettings(getSettings());
+}
+
+// ═══════════════════════════════════════════════
+//  SETTINGS PANEL open/close
+// ═══════════════════════════════════════════════
+function openSP()  {
+  document.getElementById('settings-panel').classList.add('open');
+  document.getElementById('sp-overlay').classList.add('open');
+}
+function closeSP() {
+  document.getElementById('settings-panel').classList.remove('open');
+  document.getElementById('sp-overlay').classList.remove('open');
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeSP(); });
+
+// ═══════════════════════════════════════════════
+//  BUILD THEME SWATCHES
+// ═══════════════════════════════════════════════
+function buildThemeGrid() {
+  const grid = document.getElementById('theme-grid');
+  THEMES.forEach(t => {
+    const el = document.createElement('div');
+    el.className = 'theme-swatch';
+    el.dataset.tid = t.id;
+    el.onclick = () => setTheme(t.id);
+    el.title = t.name;
+    el.innerHTML = `
+      <div class="sw-bg" style="background:${t.bg}">
+        <div class="sw-name" style="color:${t.tx}">${t.name}</div>
+        <div class="sw-dots">
+          <span style="background:${t.acc}"></span>
+          <span style="background:${t.tx};opacity:.5"></span>
+          <span style="background:${t.acc};opacity:.4"></span>
+        </div>
+      </div>`;
+    grid.appendChild(el);
+  });
+}
+
+// ═══════════════════════════════════════════════
+//  BOOT
+// ═══════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  buildThemeGrid();
+  applySettings(getSettings());
+
+  const nodes = rootNodes(WF_DATA);
+
+  // helper to dismiss loading UI
+  const doneLoading = (msg) => {
+    const bar = document.getElementById('load-bar');
+    const ov  = document.getElementById('load-overlay');
+    if (msg) document.getElementById('load-msg').textContent = msg;
+    setTimeout(() => { bar.classList.add('done'); ov.classList.add('done'); }, 120);
+  };
+
+  if (!nodes || !nodes.length) {
+    doneLoading('Sem dados — use o WorkFlowy Tree Exporter');
+    return;
+  }
+
+  // build tree async in chunks to keep UI responsive on large trees
+  document.getElementById('status')?.remove();
+  const ul = document.getElementById('tree');
+  document.getElementById('load-msg').textContent = 'Construindo árvore…';
+
+  let idx = 0;
+  const CHUNK = 40;  // nodes per frame
+
+  function buildChunk() {
+    const end = Math.min(idx + CHUNK, nodes.length);
+    for (; idx < end; idx++) {
+      ul.appendChild(mkNode(nodes[idx], 0, []));
+    }
+    const pct = Math.round(idx / nodes.length * 100);
+    document.getElementById('load-msg').textContent =
+      `Construindo… ${pct}%  (${TOTAL} nós)`;
+
+    if (idx < nodes.length) {
+      requestAnimationFrame(buildChunk);
+    } else {
+      document.getElementById('pub-date').textContent = new Date().toLocaleString('pt-BR');
+      document.getElementById('sTotal').textContent = TOTAL;
+      document.getElementById('fstats').textContent = TOTAL + ' nos · ' + nodes.length + ' raizes';
+      document.getElementById('q').addEventListener('input', e => search(e.target.value));
+      doneLoading(`✓ ${TOTAL} nós carregados`);
+    }
+  }
+
+  requestAnimationFrame(buildChunk);
+});
+
+// ═══════════════════════════════════════════════
+//  TREE DATA
+// ═══════════════════════════════════════════════
+function rootNodes(d) {
+  if (!d) return null;
+  if (Array.isArray(d)) return d.length ? d : null;
+  if (d.items && d.items.length) return d.items;
+  if (d.nm != null || d.name != null) return [d];
+  try { const r = d.projectTreeData.mainProjectTreeInfo.rootProjectChildren; if(r&&r.length) return r; } catch{}
+  const arr = Object.values(d).find(v => Array.isArray(v) && v.length);
+  return arr || null;
+}
+
+function mkNode(node, depth, pOpen) {
+  const name = node.nm != null ? node.nm : (node.name || '');
+  const note = node.no != null ? node.no : (node.note || '');
+  const done = !!(node.cp || node.completedAt);
+  const kids = node.ch != null ? node.ch : (node.children || []);
+  TOTAL++;
+  const li = document.createElement('li');
+  li.className = 'ni d' + Math.min(depth, 4);
+  const row = document.createElement('div'); row.className = 'nrow';
+  const ind = document.createElement('div'); ind.className = 'indent';
+  for (let i = 0; i < depth; i++) {
+    const g = document.createElement('div');
+    g.className = 'il' + (pOpen[i] ? ' lv' : '');
+    ind.appendChild(g);
+  }
+  const tog = document.createElement('button');
+  tog.className = kids.length ? 'tog' : 'tog leaf';
+  tog.textContent = kids.length ? '▸' : '·';
+  const nc = document.createElement('div'); nc.className = 'nc';
+  const nameEl = document.createElement('div');
+  nameEl.className = 'nname' + (done ? ' done' : '');
+  nameEl.textContent = name;
+  nc.appendChild(nameEl);
+  let noteEl = null;
+  if (note) {
+    noteEl = document.createElement('div');
+    noteEl.className = 'nnote';
+    noteEl.textContent = note;
+    nc.appendChild(noteEl);
+  }
+  row.appendChild(ind); row.appendChild(tog); row.appendChild(nc);
+  li.appendChild(row);
+  IDX.push({ li, nameEl, noteEl, nameTxt: name, noteTxt: note });
+  if (kids.length) {
+    const cul = document.createElement('ul'); cul.className = 'ch closed';
+    kids.forEach((k, i) => cul.appendChild(mkNode(k, depth+1, pOpen.concat([i<kids.length-1]))));
+    li.appendChild(cul);
+    const doToggle = () => {
+      const isOpen = !cul.classList.contains('closed');
+      cul.classList.toggle('closed', isOpen);
+      tog.textContent = isOpen ? '▸' : '▾';
+    };
+    tog.addEventListener('click', e => { e.stopPropagation(); doToggle(); });
+    nc.addEventListener('click', doToggle);
+  }
+  return li;
+}
+
+// ═══════════════════════════════════════════════
+//  SEARCH
+// ═══════════════════════════════════════════════
+function search(q) {
+  const query = q.trim().toLowerCase();
+  let hits = 0;
+  IDX.forEach(({ li, nameEl, noteEl, nameTxt, noteTxt }) => {
+    nameEl.innerHTML = esc(nameTxt);
+    if (noteEl) noteEl.innerHTML = esc(noteTxt);
+    if (!query) { li.style.display = ''; return; }
+    const match = nameTxt.toLowerCase().includes(query) || noteTxt.toLowerCase().includes(query);
+    li.style.display = match ? '' : 'none';
+    if (match) {
+      hits++;
+      nameEl.innerHTML = hi(nameTxt, q);
+      if (noteEl) noteEl.innerHTML = hi(noteTxt, q);
+      let p = li.parentElement;
+      while (p && p.id !== 'tree') {
+        if (p.classList.contains('ch') && p.classList.contains('closed')) {
+          p.classList.remove('closed');
+          const t = p.previousElementSibling && p.previousElementSibling.querySelector('.tog');
+          if (t && !t.classList.contains('leaf')) t.textContent = '▾';
+        }
+        p = p.parentElement;
+      }
+    }
+  });
+  document.getElementById('sMatch').textContent = query ? hits : '–';
+}
+function hi(text, q) { return esc(text).replace(new RegExp('('+escRe(q)+')', 'gi'), '<mark>$1</mark>'); }
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
+function clearQ() { document.getElementById('q').value = ''; search(''); }
+function expandAll()  { document.querySelectorAll('.ch').forEach(u=>u.classList.remove('closed')); document.querySelectorAll('.tog:not(.leaf)').forEach(b=>b.textContent='▾'); }
+function collapseAll(){ document.querySelectorAll('.ch').forEach(u=>u.classList.add('closed'));    document.querySelectorAll('.tog:not(.leaf)').forEach(b=>b.textContent='▸'); }
+</script>
+</body>
+</html>
