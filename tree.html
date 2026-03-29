@@ -295,7 +295,7 @@ footer a{color:var(--acc);text-decoration:none}
 // ═══════════════════════════════════════════════
 //  DATA
 // ═══════════════════════════════════════════════
-const WF_DATA = null;
+const WF_DATA = {"items": [{"id": "bcb709e7-5b03-565a-563b-426d82940a98", "nm": "Público-alvo", "no": "", "cp": false, "ch": [{"id": "c3edc5c8-8ba0-4298-c04a-bb7408558d57", "nm": "Devs (programadores)", "no": "", "cp": false, "ch": []}, {"id": "c8086dd2-1bda-d07a-d8c7-0175639f609f", "nm": "Cientistas", "no": "", "cp": false, "ch": [{"id": "ab850c4e-90e8-5c2e-45d1-bbcc4d4ab82f", "nm": "<a href=\"http://sciencecertifier.com\">sciencecertifier.com</a>", "no": "", "cp": false, "ch": []}, {"id": "9d256999-dfa7-896d-1910-53ee8c7e71bd", "nm": "artCertifier.com", "no": "", "cp": false, "ch": []}, {"id": "465db520-c0b4-75df-0bc3-ae3d4b4f6ae5", "nm": "musicCertifier. com", "no": "", "cp": false, "ch": []}, {"id": "1a261da6-81bb-c0f1-9839-773c59fb7bc8", "nm": "Muitos querendo provar a anterioridade da ideia", "no": "", "cp": false, "ch": [{"id": "c7ecaf47-9461-fa1f-5c83-79edcdd8a442", "nm": "patentes ( demoram )", "no": "", "cp": false, "ch": []}, {"id": "326920bb-1494-1a11-db50-8b90218ff8fa", "nm": "periódicos (ideia sem resultados ?) ", "no": "", "cp": false, "ch": []}]}]}, {"id": "d41d126b-d102-f94c-7eb9-49b028ce8817", "nm": "Estudante", "no": "", "cp": false, "ch": []}, {"id": "42eb513f-9cfc-1ed3-397c-fe54d1017cc5", "nm": "Artista / musico", "no": "", "cp": false, "ch": []}, {"id": "8f54dad0-4134-f0bb-2af2-ea9c6a8fbb27", "nm": "Escritores", "no": "", "cp": false, "ch": []}, {"id": "4376257c-bf7d-3bc9-5781-926649b9244f", "nm": "Autoconhecimento", "no": "", "cp": false, "ch": []}, {"id": "99451e27-022e-c3ac-e06d-9dbfede3d445", "nm": "Projetos ", "no": "", "cp": false, "ch": []}]}]};
 
 const IDX = [];
 let TOTAL = 0;
@@ -459,7 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (idx < nodes.length) {
       requestAnimationFrame(buildChunk);
     } else {
-      document.getElementById('pub-date').textContent = new Date().toLocaleString('pt-BR');
+      document.getElementById('pub-date').textContent = '2026-03-28 22:30:44';
       document.getElementById('sTotal').textContent = TOTAL;
       document.getElementById('fstats').textContent = TOTAL + ' nos · ' + nodes.length + ' raizes';
       document.getElementById('q').addEventListener('input', e => search(e.target.value));
