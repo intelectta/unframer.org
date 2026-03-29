@@ -1,4 +1,7 @@
 Intelectta informa ultima atualizacao do *Projeto [PROJETO]*
 com atualizacao do item **[PATH]**
 às [timedate]
-Acesse: [URL]
+
+1 Site: [SITE]
+2 Arvore: [TREE]
+3 Item: [ITEM_LINK]
